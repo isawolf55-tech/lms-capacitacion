@@ -1,0 +1,156 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../data/lms.db"
+}
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String
+  role        String   @default("ANNOTATOR") // ANNOTATOR | ADMIN
+  password    String   // hashed with bcrypt
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  progress    UserProgress[]
+  attempts    QuizAttempt[]
+  auditLogs   AuditLog[]
+  certifications Certification[]
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  orderIndex  Int      @unique
+  code        String   @unique
+  title       String
+  description String?
+  isEvaluated Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  submodules  Submodule[]
+}
+
+model Submodule {
+  id               String   @id @default(cuid())
+  moduleId         String
+  orderIndex       Int
+  title            String
+  slug             String
+  estimatedMinutes Int      @default(10)
+  hasEvaluation    Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  module         Module         @relation(fields: [moduleId], references: [id])
+  contentBlocks  ContentBlock[]
+  exercises      Exercise[]
+  userProgress   UserProgress[]
+
+  @@unique([moduleId, orderIndex])
+}
+
+model ContentBlock {
+  id           String   @id @default(cuid())
+  submoduleId  String
+  orderIndex   Int
+  blockType    String   // OBJECTIVE | LEARN_CONCEPT | OBSERVE_EXAMPLE | RULE_SUMMARY | TIP_WARNING
+  title        String?
+  bodyMarkdown String?
+  mediaJson    String?  // JSON array of {url, caption, type}
+  createdAt    DateTime @default(now())
+
+  submodule    Submodule @relation(fields: [submoduleId], references: [id])
+}
+
+model Exercise {
+  id               String   @id @default(cuid())
+  submoduleId      String?
+  moduleId         String?
+  exerciseType     String   @default("SINGLE_CHOICE") // SINGLE_CHOICE | IMAGE_CHOICE
+  evaluationContext String  @default("MODULE_QUIZ") // PRACTICE | MODULE_QUIZ | FINAL_EXAM
+  questionText     String
+  imageUrl         String?
+  explanation      String?
+  isComplete       Boolean  @default(true)
+  orderIndex       Int      @default(0)
+  createdAt        DateTime @default(now())
+
+  submodule  Submodule?       @relation(fields: [submoduleId], references: [id])
+  options    ExerciseOption[]
+  attempts   QuizAttempt[]
+}
+
+model ExerciseOption {
+  id          String  @id @default(cuid())
+  exerciseId  String
+  orderIndex  Int
+  optionLetter String // A | B | C | D
+  optionText  String
+  imageUrl    String?
+  isCorrect   Boolean @default(false)
+
+  exercise    Exercise      @relation(fields: [exerciseId], references: [id])
+  attempts    QuizAttempt[]
+}
+
+model UserProgress {
+  id              String    @id @default(cuid())
+  userId          String
+  submoduleId     String
+  status          String    @default("LOCKED") // LOCKED | AVAILABLE | IN_PROGRESS | COMPLETED
+  bestScore       Float?
+  totalTimeSeconds Int?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  updatedAt       DateTime  @updatedAt
+
+  user       User      @relation(fields: [userId], references: [id])
+  submodule  Submodule @relation(fields: [submoduleId], references: [id])
+
+  @@unique([userId, submoduleId])
+}
+
+model QuizAttempt {
+  id               String   @id @default(cuid())
+  userId           String
+  exerciseId       String
+  selectedOptionId String?
+  isCorrect        Boolean
+  attemptNumber    Int      @default(1)
+  timeSpentSeconds Int?
+  isPractice       Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  user           User           @relation(fields: [userId], references: [id])
+  exercise       Exercise       @relation(fields: [exerciseId], references: [id])
+  selectedOption ExerciseOption? @relation(fields: [selectedOptionId], references: [id])
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  userId       String
+  sessionId    String?
+  eventType    String   // SCREEN_VIEW | IMAGE_ZOOM | FILTER_APPLIED | OPTION_SELECTED | QUIZ_SUBMIT | etc.
+  entityType   String?  // SUBMODULE | BLOCK | EXERCISE
+  entityId     String?
+  eventPayload String?  // JSON
+  createdAt    DateTime @default(now())
+
+  user  User @relation(fields: [userId], references: [id])
+}
+
+model Certification {
+  id               String   @id @default(cuid())
+  userId           String
+  finalScore       Float
+  passed           Boolean
+  totalTimeHours   Float?
+  verificationCode String   @unique
+  issuedAt         DateTime @default(now())
+
+  user  User @relation(fields: [userId], references: [id])
+}
