@@ -1,0 +1,829 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estructura</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3e4a4320-7a2c-8050-8d3c-f528393be7a4" class="page sans"><header><h1 class="page-title" dir="auto">Estructura</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><details id="3e4a4320-7a2c-80b3-81ac-da0d628375b4" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Módulo 1 / Aprende a reconocer las etiquetas.</mark></summary><div class="indented"><details id="3e4a4320-7a2c-80c0-b027-f79002f68b09" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Aprende a reconocer un agave.</mark></summary><div class="indented"><h3 id="3e4a4320-7a2c-8011-8e81-e0950ae54c9c" class="" dir="auto">Objetivo:</h3><p id="3e4a4320-7a2c-806c-a31a-d584e9330fac" class="" dir="auto">Al terminar, debes poder mirar una imagen y responder:</p><blockquote id="3e4a4320-7a2c-801c-8a2e-e3463a992b6c" class="" dir="auto"><strong>¿Esto es un agave o no?.</strong></blockquote><h3 id="3e4a4320-7a2c-8069-8d48-ce8f1f0eed5d" class="" dir="auto">1. ¿Qué es un agave?</h3><p id="3e4a4320-7a2c-80f8-8110-d8057dc55da1" class="" dir="auto"><strong>Agave y sus características.</strong></p><p id="3e4a4320-7a2c-8010-9e72-cbaa725e9140" class="" dir="auto"><strong>¿Qué es un agave?.</strong></p><p id="3e4a4320-7a2c-8054-997d-e97000bf7b78" class="" dir="auto">Los agaves son plantas que se usan para fabricar tequila.</p><div id="3e4a4320-7a2c-802c-8d17-cc1807435ee6" class="column-list" data-notion-column-list="" dir="auto"><div id="3e4a4320-7a2c-80c6-8d47-c49d3345d256" style="width:56.25%" class="column" data-notion-column-ratio="0.5625" dir="auto"><figure id="3e4a4320-7a2c-8013-ad77-e6fa80bb1711" class="image" style="text-align:left" data-notion-image="image9.png" dir="ltr"><a href="image9.png"><img style="width:288px" src="image9.png"/></a></figure></div><div id="3e4a4320-7a2c-8095-90ea-da82a5a10dcb" style="width:43.74999999999999%" class="column" data-notion-column-ratio="0.43749999999999994" dir="auto"><figure id="3e4a4320-7a2c-807f-ab0c-c56006e7bb83" class="image" data-notion-image="image3.png" dir="ltr"><a href="image3.png"><img style="width:319.9921875px" src="image3.png"/></a></figure></div></div><p id="3e4a4320-7a2c-80fc-882e-ccca26df5621" class="" dir="auto"><strong>Forma</strong>: Los agaves tiene una forma redonda con muchos picos alrededor.</p><p id="3e6a4320-7a2c-80df-9d59-d7e002b68819" class="" dir="auto"><strong>Color</strong>: Su color es azul con verde.</p><p id="3e4a4320-7a2c-8088-aca0-f57e709a70c4" class="" dir="auto"><strong>Centro</strong>: En el centro del agave hay un pequeño círculo oscuro.</p><p id="3e4a4320-7a2c-80d6-86df-cc10bdcd9835" class="" dir="auto"><strong>Vista desde arriba:</strong></p><p id="3e4a4320-7a2c-80dc-a4e5-f23a68c19d59" class="" dir="auto">Las fotografías son tomadas desde arriba y en un escenario ideal así se ven los agaves.</p><figure id="3e4a4320-7a2c-8098-8ba9-ee19604d70dd" class="image" data-notion-image="image11.png" dir="ltr"><a href="image11.png"><img style="width:700px" src="image11.png"/></a></figure><p id="3e4a4320-7a2c-80fc-a95b-fd7648052200" class="" dir="auto"><strong>¿Cómo saber si es agave?.</strong><div class="indented"><ol type="1" id="3e4a4320-7a2c-8019-9330-f4e87bb5c46c" class="numbered-list" start="1" dir="auto"><li>El color de los agaves es azul-verde.</li></ol><ol type="1" id="3e4a4320-7a2c-8067-a1eb-fcac65c5f8f5" class="numbered-list" start="2" dir="auto"><li>Los agaves tiene picos, si ves picos azules es un agave.</li></ol><ol type="1" id="3e4a4320-7a2c-8050-afc0-d5aadc6438fd" class="numbered-list" start="3" dir="auto"><li>Los agaves suelen generar sombra cuando están vivos.</li></ol></div></p><h3 id="3e4a4320-7a2c-80b9-8a05-fcc5a8362efc" class="" dir="auto">2. Ejemplos:</h3><div id="3e6a4320-7a2c-8022-b32c-cfbb6b4b83f6" class="column-list" data-notion-column-list="" dir="auto"><div id="3e6a4320-7a2c-80b8-86c2-fbe1f32c4807" style="width:37.5%" class="column" data-notion-column-ratio="0.375" dir="auto"><figure id="3e4a4320-7a2c-8007-a7ca-eb123e987be4" class="image" data-notion-image="image7.png" dir="ltr"><a href="image7.png"><img style="width:513.9931030273438px" src="image7.png"/></a></figure></div><div id="3e6a4320-7a2c-8029-a0fe-d66ecdd455a9" style="width:25.000000000000007%" class="column" data-notion-column-ratio="0.25000000000000006" dir="auto"><figure id="3e6a4320-7a2c-801c-84ee-edebeafee902" class="image" data-notion-image="ffd51600-f7ff-4073-8792-bf515b7e3817.png" dir="ltr"><a href="ffd51600-f7ff-4073-8792-bf515b7e3817.png"><img style="width:480px" src="ffd51600-f7ff-4073-8792-bf515b7e3817.png"/></a></figure></div><div id="3e6a4320-7a2c-8092-805e-ff6e8dd00553" style="width:37.50000000000002%" class="column" data-notion-column-ratio="0.3750000000000002" dir="auto"><figure id="3e6a4320-7a2c-8020-8f26-e43de2210113" class="image" data-notion-image="image.png" dir="ltr"><a href="image.png"><img style="width:192px" src="image.png"/></a></figure></div></div><p id="3e4a4320-7a2c-8085-80c0-cb7731bfebfc" class="" dir="auto">Vemos el color azul-verde:<div class="indented"><ol type="1" id="3e4a4320-7a2c-80b6-bc01-d66e0d7dfbcd" class="numbered-list" start="1" dir="auto"><li>Vemos picos.</li></ol><ol type="1" id="3e4a4320-7a2c-8007-a766-c6268fb84d2a" class="numbered-list" start="2" dir="auto"><li>Vemos sombra.</li></ol><p id="3e4a4320-7a2c-80e2-ab47-c7628c81413b" class="" dir="auto">Por lo tanto <strong>ES UN AGAVE.</strong></p><p id="3e4a4320-7a2c-80a6-b52c-c18f03424819" class="" dir="auto">En este caso la imagen del agave no es tan clara sin embargo cumple con las características de un agave y debe ser anotado como tal.</p></div></p><h3 id="3e4a4320-7a2c-80ec-980c-ca0420a597bc" class="" dir="auto">3. Agaves pequeños:</h3><ul id="3e4a4320-7a2c-805c-8258-f9134383df50" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los agaves son muy pequeños debido a que los predios son recién plantados.</li></ul><ul id="3e4a4320-7a2c-8075-8e82-f4a3dfd2b1a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aunque el color puede no ser claramente visible por su tamaño, deben identificarse principalmente por su <strong>forma</strong>.</li></ul><ul id="3e4a4320-7a2c-8012-8cd6-f58fcbe7a9fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Suelen presentar un <strong>centro oscuro con picos alrededor</strong>, dando una apariencia similar a una pequeña estrella oscura.</li></ul><div id="3e4a4320-7a2c-808f-8ba5-c1b23de64245" class="column-list" data-notion-column-list="" dir="auto"><div id="3e4a4320-7a2c-80cb-9106-d7cbfa6b8944" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e4a4320-7a2c-80da-b5bb-ec98a73cffef" class="image" data-notion-image="image%201.png" dir="ltr"><a href="image%201.png"><img style="width:666px" src="image%201.png"/></a></figure></div><div id="3e4a4320-7a2c-8072-a23d-ce76bfe1d67b" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e4a4320-7a2c-806c-b613-d1004b45fa27" class="image" data-notion-image="image%202.png" dir="ltr"><a href="image%202.png"><img style="width:301.96875px" src="image%202.png"/></a></figure></div></div><h3 id="3e4a4320-7a2c-80cb-8458-ea855f06a35b" class="" dir="auto">4. Agaves poco visibles o difíciles de distinguir:</h3><p id="3e4a4320-7a2c-8076-992d-f64c13aa9cc8" class="" dir="auto">En estos casos la imagen del agave no es tan clara sin embargo cumple con las características de un agave y debe ser anotado como tal.</p><div id="3e4a4320-7a2c-801e-a27f-f5fdac95cd02" class="column-list" data-notion-column-list="" dir="auto"><div id="3e4a4320-7a2c-804a-8bb9-fbee483792fa" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e4a4320-7a2c-801a-ba9e-db1c9ead0518" class="image" data-notion-image="https://lh7-us.googleusercontent.com/vSLWYpPst8pzWBYmsGgRESiTlgf0Tg6c-qWbzdi9RMPADBMNSV2j3hqMxLVwGusdbM0eIXRlcidzwWOz7mA2zgpMJattVHL1-qF2KfgeOBSdcAzxe3dFENf2E30eTFAKoEgg_-wd065WQvnq9XhDfnk" dir="ltr"><a href="https://lh7-us.googleusercontent.com/vSLWYpPst8pzWBYmsGgRESiTlgf0Tg6c-qWbzdi9RMPADBMNSV2j3hqMxLVwGusdbM0eIXRlcidzwWOz7mA2zgpMJattVHL1-qF2KfgeOBSdcAzxe3dFENf2E30eTFAKoEgg_-wd065WQvnq9XhDfnk"><img style="width:226.5px" src="https://lh7-us.googleusercontent.com/vSLWYpPst8pzWBYmsGgRESiTlgf0Tg6c-qWbzdi9RMPADBMNSV2j3hqMxLVwGusdbM0eIXRlcidzwWOz7mA2zgpMJattVHL1-qF2KfgeOBSdcAzxe3dFENf2E30eTFAKoEgg_-wd065WQvnq9XhDfnk"/></a></figure><figure id="3e4a4320-7a2c-80cf-b5fb-c57ed6f0117f" class="image" data-notion-image="https://lh7-us.googleusercontent.com/laZkv92i3OL4xWrVQoF9A6izhUqhREXTzwF5j-R7kS6w4odCNopx3NaNkrSQNZBNVgUBVR5hftfuBUEDf1xyjs7Mg4Ez-DDQEnSBZfjnKJAWbTct9GCabeqO8H3mI7AtOWhCFV9lMqpIyA4aLQdvETg" dir="ltr"><a href="https://lh7-us.googleusercontent.com/laZkv92i3OL4xWrVQoF9A6izhUqhREXTzwF5j-R7kS6w4odCNopx3NaNkrSQNZBNVgUBVR5hftfuBUEDf1xyjs7Mg4Ez-DDQEnSBZfjnKJAWbTct9GCabeqO8H3mI7AtOWhCFV9lMqpIyA4aLQdvETg"><img style="width:349px" src="https://lh7-us.googleusercontent.com/laZkv92i3OL4xWrVQoF9A6izhUqhREXTzwF5j-R7kS6w4odCNopx3NaNkrSQNZBNVgUBVR5hftfuBUEDf1xyjs7Mg4Ez-DDQEnSBZfjnKJAWbTct9GCabeqO8H3mI7AtOWhCFV9lMqpIyA4aLQdvETg"/></a></figure><p id="3e4a4320-7a2c-8038-84e6-d45d609368ab" class="" dir="auto">Así se verán el agave anterior de lejos, TEN CUIDADO, y haz el BB correspondiente a agave.</p></div><div id="3e4a4320-7a2c-8054-bca3-ed748c8594ab" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e4a4320-7a2c-8090-b95c-c6a335cce08e" class="image" data-notion-image="https://lh7-us.googleusercontent.com/gbXaRk8m4zRQIjZ2i0eFIqGOzCQaUJAXAk1mHBdmKeKmy8GByhPnZiup5ew4rj2vPUo7YmmHBUwcQyepHTXg-tt5Y_SCbgXPQAvWKIacRtyFZNShVO-pmAM9E-snviGL0JelgHu4WIjiaF3nyd3Glo0" dir="ltr"><a href="https://lh7-us.googleusercontent.com/gbXaRk8m4zRQIjZ2i0eFIqGOzCQaUJAXAk1mHBdmKeKmy8GByhPnZiup5ew4rj2vPUo7YmmHBUwcQyepHTXg-tt5Y_SCbgXPQAvWKIacRtyFZNShVO-pmAM9E-snviGL0JelgHu4WIjiaF3nyd3Glo0"><img style="width:195.00001525878906px" src="https://lh7-us.googleusercontent.com/gbXaRk8m4zRQIjZ2i0eFIqGOzCQaUJAXAk1mHBdmKeKmy8GByhPnZiup5ew4rj2vPUo7YmmHBUwcQyepHTXg-tt5Y_SCbgXPQAvWKIacRtyFZNShVO-pmAM9E-snviGL0JelgHu4WIjiaF3nyd3Glo0"/></a></figure><figure id="3e4a4320-7a2c-8027-b720-d3c8554d2af9" class="image" data-notion-image="https://lh7-us.googleusercontent.com/pGcepj5am7FNIiP3-Kzz9Y79cI1fQdUWujld6mNGW9ql9NDKgqRUJv5_tR6RTjg0n0MB9Vsb4K16RQCMvLwo0Hdv_F2I8umLkeLspMC33UFKD99QfeOhbvsTyjSLyYmZqgDA5GUcEUdizBPMbEBWlsk" dir="ltr"><a href="https://lh7-us.googleusercontent.com/pGcepj5am7FNIiP3-Kzz9Y79cI1fQdUWujld6mNGW9ql9NDKgqRUJv5_tR6RTjg0n0MB9Vsb4K16RQCMvLwo0Hdv_F2I8umLkeLspMC33UFKD99QfeOhbvsTyjSLyYmZqgDA5GUcEUdizBPMbEBWlsk"><img style="width:120px" src="https://lh7-us.googleusercontent.com/pGcepj5am7FNIiP3-Kzz9Y79cI1fQdUWujld6mNGW9ql9NDKgqRUJv5_tR6RTjg0n0MB9Vsb4K16RQCMvLwo0Hdv_F2I8umLkeLspMC33UFKD99QfeOhbvsTyjSLyYmZqgDA5GUcEUdizBPMbEBWlsk"/></a></figure><p id="3e4a4320-7a2c-80e5-b9fa-e275648eea8d" class="" dir="auto">A pesar de que se ven pequeños, cumple con las características de un agave, podemos ver la forma, los picos y un poco del color de un agave, ten CUIDADO y NO los marques como huecos.</p></div></div><h3 id="3e4a4320-7a2c-808f-ab67-f7108bbeebf7" class="" dir="auto">5. Agaves en zonas oscuras:</h3><p id="3e4a4320-7a2c-8044-927b-cdeb836a32a6" class="" dir="auto">
+</p><figure id="3e4a4320-7a2c-8033-b278-f7efb0877982" class="image" data-notion-image="https://lh7-us.googleusercontent.com/SYc-fAGDald51R0zK07M-J60ItxCZY9LDdGxmZ_WWhUu_OXcSkqNrKrJ0lz2ndQZItChVD4Ut1C__fME5bpycKxMSHlW3L0mQ6kmb6Wr2neU3VSXNe8cjOIAnxZfd3EUF6G7cs_-_bLtQSnaDxdoskE" dir="ltr"><a href="https://lh7-us.googleusercontent.com/SYc-fAGDald51R0zK07M-J60ItxCZY9LDdGxmZ_WWhUu_OXcSkqNrKrJ0lz2ndQZItChVD4Ut1C__fME5bpycKxMSHlW3L0mQ6kmb6Wr2neU3VSXNe8cjOIAnxZfd3EUF6G7cs_-_bLtQSnaDxdoskE"><img style="width:280px" src="https://lh7-us.googleusercontent.com/SYc-fAGDald51R0zK07M-J60ItxCZY9LDdGxmZ_WWhUu_OXcSkqNrKrJ0lz2ndQZItChVD4Ut1C__fME5bpycKxMSHlW3L0mQ6kmb6Wr2neU3VSXNe8cjOIAnxZfd3EUF6G7cs_-_bLtQSnaDxdoskE"/></a></figure><p id="3e4a4320-7a2c-80f8-8d6a-e0fc7567343a" class="" dir="auto">En sitios oscuros de la imagen, incrementa el brillo para que puedas detectar si es o no un agave, en este caso esos son agaves.</p><p id="3eca4320-7a2c-800e-8348-cb48e9a1bab5" class="" dir="auto">
+</p><hr id="3eca4320-7a2c-8067-92bc-dda6bacb3f02" dir="auto"/><h3 id="3e4a4320-7a2c-804c-9282-d13ce516defe" class="" dir="auto">EVALUACIÓN :</h3><p id="3eca4320-7a2c-80b2-99a2-f8a6e2c2f7a4" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"> <strong>Ejercicio 1.</strong></p><figure id="3e5a4320-7a2c-8034-b81c-da28fa0b7f78" class="image" data-notion-image="image%203.png" dir="ltr"><a href="image%203.png"><img style="width:544.0104370117188px" src="image%203.png"/></a></figure><p id="3e5a4320-7a2c-80c0-8dc3-d4ec830c07f4" class="" dir="auto"><strong>¿Agaves o no agaves?.</strong></p><p id="3eca4320-7a2c-8036-9961-f6064d8d74a4" class="" dir="auto"><strong>Respuesta: </strong>Aunque los dos ejemplares se ven un poco más pequeños que el resto, <strong>sí son agaves</strong>. De acuerdo con el manual, podemos identificarlos porque mantienen dos características importantes: <strong>el color y la distancia de plantación</strong>.<br/></p><p id="3eca4320-7a2c-80a8-b48e-fbcd405e197d" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"> <strong>Ejercicio 2.</strong></p><figure id="3e5a4320-7a2c-8051-be7f-cf705ff6666b" class="image" data-notion-image="image%204.png" dir="ltr"><a href="image%204.png"><img style="width:528px" src="image%204.png"/></a></figure><p id="3e5a4320-7a2c-8052-ab0f-c5baf8104325" class="" dir="auto"><strong>¿Agave o no agave?.</strong></p><p id="3eca4320-7a2c-807d-a099-f6a0ab3fe342" class="" dir="auto"><strong>Respuesta:</strong> En este caso puede parecer un poco más complicado, ya que el agave <strong>no conserva el color habitual de la plantación y se ve más opaco</strong>. Sin embargo, al revisar <strong>la forma de la planta y la distancia de plantación</strong>, podemos confirmar que se trata de un agave, posiblemente en proceso de secado.</p><p id="3e5a4320-7a2c-8039-a4f0-de9ab3238b63" class="" dir="auto"><strong>Recuerda:</strong> mientras la planta siga presente y respete la distancia de plantación establecida, <strong>se considera un agave</strong>.</p><p id="3e6a4320-7a2c-80bc-8983-c5e51278576c" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong> Ejercicio 3.</strong></p><figure id="3e6a4320-7a2c-80bc-9231-ff1482ab0845" class="image" data-notion-image="image%205.png" dir="ltr"><a href="image%205.png"><img style="width:355.0000305175781px" src="image%205.png"/></a></figure><p id="3e6a4320-7a2c-8009-b1d9-c5a6d8c29f7f" class="" dir="auto"><strong>¿Agave o no agave?.</strong></p><p id="3e6a4320-7a2c-8072-86e0-d8cf71e2a08d" class="" dir="auto"><strong>Sí.</strong> Se trata de un <strong>agave</strong>, por lo que deberá marcarse utilizando un <strong>BBox rojo.</strong></p><p id="3e6a4320-7a2c-800d-bca9-c34b2b27f092" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong> Ejercicio 4.</strong></p><figure id="3e6a4320-7a2c-801e-9ddc-c5d1b30a5cfe" class="image" data-notion-image="image%206.png" dir="ltr"><a href="image%206.png"><img style="width:384px" src="image%206.png"/></a></figure><p id="3eca4320-7a2c-8075-80c0-c84e2704e29b" class="" dir="auto"><strong>¿Agave o no agave?.</strong></p><p id="3e6a4320-7a2c-80fd-bcd7-f52ec785676a" class="" dir="auto"><strong>Respuesta: </strong>Sí. Aunque la maleza es alta y cubre gran parte de la hilera, debajo de ella se pueden distinguir <strong>tonos verde azulados característicos de los agaves</strong>.</p><p id="3e6a4320-7a2c-8058-be80-c0e45804d0a1" class="" dir="auto">Además, los ejemplares respetan la <strong>distancia de plantación</strong>, por lo que cada uno de los agaves señalados con las flechas deberá marcarse como <strong>agave</strong>.</p><p id="3e4a4320-7a2c-807f-a64e-e8e8a5fc744e" class="" dir="auto"><mark class="highlight-red_background" data-notion-highlight="red_background">Mostrar imágenes y preguntar:</mark></p><p id="3eca4320-7a2c-804b-903f-fe784d5060d6" class="" dir="auto">
+</p></div></details><details id="3e4a4320-7a2c-80d4-b0fc-fe468d20aebc" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Aprende a reconocer un hueco y NV.</mark></summary><div class="indented"><h3 id="3e4a4320-7a2c-8027-8537-ded0f73e75c5" class="" dir="auto">🟨 HUECO</h3><p id="3e4a4320-7a2c-80f4-a6e7-df3cecf2c3a3" class="" dir="auto">Cuando:</p><ul id="3e4a4320-7a2c-805d-8808-f38c3079872b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estamos dentro de una línea de plantación;</li></ul><ul id="3e4a4320-7a2c-80e8-b416-cdb92e6c9746" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Podemos ver la tierra;</li></ul><ul id="3e4a4320-7a2c-803a-a9a4-f3c833c8bde8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Podemos afirmar que ahí no hay agave en un lugar donde si debería de haber.</li></ul><div id="3eca4320-7a2c-809a-8dbc-ee648867b85b" class="column-list" data-notion-column-list="" dir="auto"><div id="3eca4320-7a2c-804a-af9f-d4eec6c0cd8d" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-807b-924a-f04a9421c91f" class="image" data-notion-image="image%207.png" dir="ltr"><a href="image%207.png"><img style="width:384px" src="image%207.png"/></a></figure></div><div id="3eca4320-7a2c-804a-8e18-d77afeca0bde" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-8007-9f91-eefdabd1deff" class="image" data-notion-image="image%208.png" dir="ltr"><a href="image%208.png"><img style="width:240px" src="image%208.png"/></a></figure></div></div><p id="3e6a4320-7a2c-800a-ae04-c0e293e841c8" class="" dir="auto"><mark class="highlight-red_background" data-notion-highlight="red_background"><strong>FALTA EVALUACIÓN</strong></mark><strong> </strong></p><p id="3e6a4320-7a2c-8015-8cf3-da75142e6ad2" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-805a-994c-fc1fd04594ea" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong> Ejercicio 1</strong>. </p><figure id="3e6a4320-7a2c-8091-aca5-c926be7689c9" class="image" data-notion-image="image%209.png" dir="ltr"><a href="image%209.png"><img style="width:283.0382080078125px" src="image%209.png"/></a></figure><p id="3eca4320-7a2c-80bb-86b2-ff56690b8777" class="" dir="auto"><strong>¿Qué debería marcarse en el lugar señalado y con qué tipo de BBox?.</strong></p><p id="3e6a4320-7a2c-803c-9e48-e86659e85048" class="" dir="auto"><strong>Respuesta:</strong> Hueco.</p><p id="3e6a4320-7a2c-8069-bdad-fbe5fdc8f5ae" class="" dir="auto">Aunque se observa un agave pequeño, este <strong>no se encuentra sobre la línea de plantación ni respeta la distancia establecida</strong>, por lo que se identifica como un <strong>hijuelo </strong>y esos<strong> no los contabilizamos</strong>.</p><p id="3e6a4320-7a2c-80fa-9f79-cbffbaf32e94" class="" dir="auto">En el lugar donde debería encontrarse el agave hay un espacio vacío, por lo que deberá marcarse como <strong>hueco con un BBox amarillo</strong>.</p><p id="3e6a4320-7a2c-804d-b25d-ece0678ac3db" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong> Ejercicio 2.</strong></p><figure id="3e6a4320-7a2c-803d-b776-c36e00893cf4" class="image" data-notion-image="image%2010.png" dir="ltr"><a href="image%2010.png"><img style="width:283.0382080078125px" src="image%2010.png"/></a></figure><p id="3eca4320-7a2c-803f-8100-db018dd20111" class="" dir="auto"><strong>¿Qué debería marcarse en el lugar señalado y con qué tipo de BBox?.</strong></p><p id="3e6a4320-7a2c-805f-baf2-ef39c8867111" class="" dir="auto"><strong>Respuesta: </strong>Hueco.</p><p id="3e6a4320-7a2c-80dc-9b92-c04217712ff8" class="" dir="auto">De acuerdo con la <strong>distancia de plantación</strong>, en ese punto debería encontrarse un agave. Como no hay ninguna planta presente, el espacio debe marcarse como <strong>hueco con un BBox amarillo</strong>.</p><hr id="3eca4320-7a2c-8048-bc20-d70b5c698096" dir="auto"/><h3 id="3e4a4320-7a2c-809d-9993-fe6e180af250" class="" dir="auto">🟦 NO VISIBLE</h3><p id="3e4a4320-7a2c-8053-b11c-c0469bda35b5" class="" dir="auto">Cuando:</p><ul id="3e4a4320-7a2c-8087-90ce-ca9147729b20" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estamos dentro de una línea de plantación </li></ul><ul id="3e4a4320-7a2c-8016-bb94-f99fe3895ec2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hay maleza <strong>con volumen.</strong></li></ul><ul id="3e4a4320-7a2c-8058-8f65-d34a5e152891" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No podemos ver qué hay debajo;</li></ul><ul id="3e4a4320-7a2c-8011-a112-d4096a6e8630" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No podemos afirmar si existe o no un agave.</li></ul><p id="3e6a4320-7a2c-8088-af8a-c3fa4a19c7ee" class="" dir="auto">Las flechas en la siguiente imagen se utilizaron para resaltar los agaves ocultos:</p><figure id="3e6a4320-7a2c-80ea-9b71-cc78f3cf30a8" class="image" data-notion-image="image%2011.png" dir="ltr"><a href="image%2011.png"><img style="width:627.984375px" src="image%2011.png"/></a><figcaption>La maleza no parece tener tanto volumen pero los agaves se están ocultando esto quiere decir que la maleza si está alta y cuenta como no visible.</figcaption></figure><hr id="3eca4320-7a2c-806f-b922-f6072b1d94cb" dir="auto"/><p id="3e4a4320-7a2c-8028-9290-f7857fcc3a5b" class="" dir="auto"><strong>EVALUACIÓN:</strong></p><p id="3e5a4320-7a2c-801e-84fb-dbfcb4889a95" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong>Ejercicio 1.  </strong></p><figure id="3e6a4320-7a2c-8027-9bc1-ded4b13a7e46" class="image" data-notion-image="image%2012.png" dir="ltr"><a href="image%2012.png"><img style="width:621.0069580078125px" src="image%2012.png"/></a></figure><p id="3eca4320-7a2c-8052-9436-f41451c8bb53" class="block-color-default_background" data-notion-highlight="default_background" dir="auto"><strong>¿Los BBox están correctamente marcados?.</strong></p><p id="3e6a4320-7a2c-8016-9f96-eeef7b13f1c1" class="" dir="auto"><strong>A.</strong> Los BBox <strong>1 y 3</strong> deberían marcarse como <strong>hueco</strong>, mientras que el BBox <strong>2</strong> debería conservarse como NV, ya que la maleza dificulta confirmar qué hay debajo.</p><p id="3e6a4320-7a2c-8047-ac50-dad8c2ca93d5" class="" dir="auto"><strong>B.</strong> Los BBox <strong>1 y 2</strong> deberían marcarse como <strong>hueco</strong>, mientras que el BBox <strong>3</strong> debería conservarse como NV debido a la presencia de maleza.</p><p id="3e6a4320-7a2c-8048-95c1-fc7092d77142" class="" dir="auto"><strong>C.</strong> Los BBox <strong>1 y 3</strong> deberían marcarse como <strong>hueco</strong>, mientras que el BBox <strong>2</strong> debería marcarse como <strong>agave</strong>, ya que se alcanza a distinguir una sombra debajo de la maleza.</p><p id="3e6a4320-7a2c-809f-bd13-de116ee8a69b" class="" dir="auto"><strong>Respuesta correcta: C.</strong> Los BBox 1 y 3 deben pasar a <strong>hueco</strong>, porque la maleza permite comprobar que no hay un agave. En el BBox 2 se distingue una sombra que indica la presencia de un agave, por lo que debe cambiarse a <strong>agave</strong>.<br/></p><p id="3e5a4320-7a2c-8074-af10-c0963b5edab8" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong>Ejercicio 2. </strong></p><figure id="3e5a4320-7a2c-80ec-a266-e4ebe4e1c631" class="image" data-notion-image="image%2013.png" dir="ltr"><a href="image%2013.png"><img style="width:628.0729370117188px" src="image%2013.png"/></a></figure><p id="3eca4320-7a2c-8076-bbba-dfde0eac3353" class="" dir="auto"><strong>¿Este No visible (NV) señalado por la flecha está marcado correctamente?.</strong></p><p id="3e6a4320-7a2c-80c6-9670-fbd0233d49ee" class="" dir="auto"><strong>A.</strong> Sí. La maleza es más alta que los agaves y dificulta determinar si debajo de ella hay un agave o si el espacio está vacío.</p><p id="3e6a4320-7a2c-8017-ba35-c5dac9c22620" class="" dir="auto"><strong>B.</strong> No. Aunque la maleza es alta, los agaves cercanos permiten determinar que el espacio señalado corresponde a un hueco.</p><p id="3e6a4320-7a2c-8086-bc9e-cb9de7d007d8" class="" dir="auto"><strong>C.</strong> No. La presencia de maleza indica que el espacio debe marcarse como agave, aunque no sea posible observarlo directamente.</p><p id="3e6a4320-7a2c-8062-a609-d55c7af2e21c" class="" dir="auto"><strong>Respuesta correcta: A.</strong> La maleza es lo suficientemente alta como para impedir confirmar si hay un agave debajo. Por ello, <strong>debe mantenerse como NV</strong>.<br/></p></div></details><details id="3e4a4320-7a2c-8023-bc8b-f0542a5fe411" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Aprende a distinguir HUECO vs. NO VISIBLE.</mark></summary><div class="indented"><h3 id="3eca4320-7a2c-80f1-92eb-f9660e1b81cd" class="" dir="auto">🟨 HUECO</h3><ul id="3e4a4320-7a2c-803d-b514-d9630cea8bc2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tierra visible;</li></ul><ul id="3e4a4320-7a2c-80da-8a77-c872561c71e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Podemos asegurar que no hay agave;</li></ul><ul id="3e4a4320-7a2c-8075-8500-dedab6984503" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Poca maleza donde <strong>todavía podemos comprobarlo.</strong></li></ul><h3 id="3eca4320-7a2c-80ff-babe-d0e599adda56" class="" dir="auto">🟦 NO VISIBLE</h3><ul id="3e4a4320-7a2c-801c-9c4b-fe49366ee83b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Maleza con volúmen.</li></ul><ul id="3e4a4320-7a2c-80e8-a528-f3924f032b6d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No podemos ver el suelo.</li></ul><ul id="3e4a4320-7a2c-80ed-acaa-efdd39a0e515" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No sabemos qué hay debajo.</li></ul><ul id="3e4a4320-7a2c-80c3-a7bc-e1d3f42eef78" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No hay señales suficientes para confirmar un agave.</li></ul><p id="3e4a4320-7a2c-8042-8441-c8bb1a4b39ec" class="" dir="auto">Y especialmente los casos difíciles:</p><p id="3e4a4320-7a2c-80ea-849b-f844234bfcfa" class="" dir="auto"><strong>Maleza a ras de suelo.</strong></p><blockquote id="3e4a4320-7a2c-803f-b690-e69c62ef52f9" class="" dir="auto"><strong>La cantidad/volumen de maleza y nuestra capacidad de saber qué hay debajo determinan la etiqueta; no el color de la maleza.</strong></blockquote><p id="3eca4320-7a2c-8087-80bf-c286d8d97e8f" class="" dir="auto">
+</p><hr id="3eca4320-7a2c-80ef-aa74-eaf3520e2387" dir="auto"/><p id="3eca4320-7a2c-80d2-9743-e8cdca6d703e" class="" dir="auto"><strong>EVALUACIÓN:</strong></p><p id="3e6a4320-7a2c-80fb-b92b-cd6c016ff74d" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong> Ejercicio 1.</strong></p><figure id="3e6a4320-7a2c-8075-858c-f9b1c4843841" class="image" data-notion-image="image%2014.png" dir="ltr"><a href="image%2014.png"><img style="width:627.96875px" src="image%2014.png"/></a></figure><p id="3e6a4320-7a2c-80d5-a6c5-e8ace481aa37" class="" dir="auto">Selecciona la opción correcta. Los Bb con la etiqueta de no visible están colocados correctamente?</p><ul id="3e6a4320-7a2c-8036-86b8-dc6b20351615" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si, porque hay maleza y no se ve si hay agave.</li></ul><ul id="3e6a4320-7a2c-804a-9bd6-ec757aac3c22" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No, porque la maleza está al ras del suelo.</li></ul><p id="3e6a4320-7a2c-809e-9aab-ebcd21e08037" class="" dir="auto"><strong>Opción correcta:</strong> No, porque la maleza está al ras del suelo y no hay ningún agave cubierto por la maleza.</p><p id="3e6a4320-7a2c-80d6-9690-f30651bb8334" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"> <strong>Ejercicio 2.</strong></p><figure id="3e6a4320-7a2c-80e4-96ff-cf85c5399493" class="image" data-notion-image="image%2015.png" dir="ltr"><a href="image%2015.png"><img style="width:400.96875px" src="image%2015.png"/></a></figure><p id="3e6a4320-7a2c-80ff-bba2-fe06371f6abf" class="" dir="auto"><strong>¿Los Bbs señalados con las flechas tienen la etiqueta correcta?.</strong></p><ul id="3e6a4320-7a2c-8041-a578-f06b8c687f4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si, porque en esa zonas la maleza se ve mas baja. </li></ul><ul id="3e6a4320-7a2c-8064-8f74-c9447b95ffa4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No, porque la maleza no permite ver si hay agave debajo.</li></ul><ul id="3e6a4320-7a2c-80ae-830b-e0518f494cd2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si, porque la maleza se ve mas seca en esas zonas.</li></ul><figure id="3e6a4320-7a2c-805c-bf8e-faf20c0a1e7c" class="image" data-notion-image="image%2016.png" dir="ltr"><a href="image%2016.png"><img style="width:628.0729370117188px" src="image%2016.png"/></a></figure><p id="3e6a4320-7a2c-804c-9568-dde2bab0d9ba" class="" dir="auto"><strong>¿El BBox señalado con la flecha está correctamente etiquetado?.</strong></p><p id="3e6a4320-7a2c-804e-944c-def9fd8beb26" class="" dir="auto"><strong>A. Sí.</strong> La presencia de maleza en esa zona puede dificultar la visibilidad del terreno y no permite determinar con certeza si debajo hay un agave.</p><p id="3e6a4320-7a2c-801c-95dd-f06e5323e7fb" class="" dir="auto"><strong>B. No.</strong> Aunque hay presencia de maleza, esta no impide observar la zona con suficiente claridad para determinar si existe un agave, por lo que debería clasificarse como hueco</p><p id="3e6a4320-7a2c-805d-9bbe-d6856301520f" class="" dir="auto"><strong>Respuesta: No.</strong> Debe marcarse como <strong>hueco</strong>, ya que la maleza está a ras de suelo y no impide observar el espacio. Además, los agaves vecinos son visibles, lo que confirma que la maleza no es suficiente para ocultar un agave.</p></div></details></div></details><details id="3e4a4320-7a2c-808d-b269-f4e03045435a" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Módulo 2 / Distancia.</mark></summary><div class="indented"><h4 id="3e5a4320-7a2c-8064-870d-d7e3cc262483" class="" dir="auto">4.1. Los agaves siguen un patrón de distancia:</h4><p id="3e5a4320-7a2c-80dd-9ae7-e6c1deb68518" class="" dir="auto">Los agaves de una plantación se colocan dejando <strong>una distancia determinada entre ellos</strong>, que generalmente es igual o muy similar a lo largo de la línea.</p><p id="3e5a4320-7a2c-8042-b96c-d132e78cf486" class="" dir="auto">Esta distancia existe porque los agaves necesitan espacio para crecer.</p><p id="3e5a4320-7a2c-8008-ac8b-d3a4b8fa6f81" class="" dir="auto">Por eso, <strong>no debemos interpretar cualquier espacio de tierra entre dos agaves como un hueco.</strong></p><hr id="3e5a4320-7a2c-8066-bce6-d07132d37c96" dir="auto"/><h4 id="3e5a4320-7a2c-8041-873a-eb4d2332b7d0" class="" dir="auto">4.2. La distancia se mide de centro a centro:</h4><p id="3e5a4320-7a2c-80c0-844a-c2de0c378961" class="" dir="auto">Para analizar un espacio vacío, debemos observar la distancia <strong>del centro de un agave al centro del siguiente agave visible</strong>.</p><figure id="3e6a4320-7a2c-80e2-bb97-fed11964d477" class="image" data-notion-image="image%2017.png" dir="ltr"><a href="image%2017.png"><img style="width:459.984375px" src="image%2017.png"/></a></figure><p id="3e5a4320-7a2c-8090-a30d-d6a69052af03" class="" dir="auto">La pregunta no es:</p><blockquote id="3e5a4320-7a2c-809b-9b5c-d93345f4e01a" class="" dir="auto">“¿Hay espacio vacío?”</blockquote><p id="3e5a4320-7a2c-807d-9f7d-fbf0bb39ba33" class="" dir="auto">La pregunta correcta es:</p><blockquote id="3e5a4320-7a2c-80f4-a015-c5e277acfed4" class="" dir="auto"><strong>“¿Cuántos agaves deberían estar en este espacio de acuerdo con la distancia de plantación?”</strong></blockquote><hr id="3eca4320-7a2c-8065-93f3-d6348ce4bcb5" dir="auto"/><h4 id="3e5a4320-7a2c-8015-9db1-fcc8db004c69" class="" dir="auto">4.3. Un espacio vacío no siempre significa que falta un agave:</h4><p id="3e5a4320-7a2c-80f7-bd05-d0713feaf76d" class="" dir="auto">Imagina dos agaves:</p><p id="3e5a4320-7a2c-80d3-917b-cac00e5350dd" class="" dir="auto">🌱 🌱</p><p id="3e5a4320-7a2c-8079-aefd-d2e2281c3202" class="" dir="auto">Existe un espacio entre ellos, pero <strong>ese espacio puede ser completamente normal</strong> si corresponde a la distancia que se deja entre plantas.</p><p id="3e5a4320-7a2c-801d-9dd0-fc45c5c0525e" class="" dir="auto">En ese caso:</p><p id="3e5a4320-7a2c-801f-99d7-e382ebc9fc8b" class="" dir="auto"><strong>No colocamos nada.</strong></p><p id="3e5a4320-7a2c-80ca-8571-c45ba517da93" class="" dir="auto">El error sería pensar:</p><blockquote id="3e5a4320-7a2c-80c4-bd06-e08a4287fbc7" class="" dir="auto">“Hay tierra → falta un agave → pongo hueco.”</blockquote><p id="3e5a4320-7a2c-80b8-b81b-e3393a34778a" class="" dir="auto">La distancia normal entre plantas <strong>no se considera un faltante</strong>.</p><hr id="3eca4320-7a2c-80b6-b46e-eb130eaf7c6d" dir="auto"/><h4 id="3e5a4320-7a2c-809b-960d-ca5e7e3d5660" class="" dir="auto">4.4. Cuando la distancia indica que sí faltan agaves:</h4><p id="3e5a4320-7a2c-8094-bf48-f1ba91149fdb" class="" dir="auto">Ahora imagina que tenemos:</p><p id="3e5a4320-7a2c-807f-a23a-f0853787763d" class="" dir="auto">🌱     ?     🌱  🌱 </p><p id="3e5a4320-7a2c-80fe-b92f-e2fc48a6813d" class="" dir="auto">La distancia entre ambos centros es mucho mayor que la distancia habitual de plantación.</p><p id="3e5a4320-7a2c-8035-806a-c31ebfb12f76" class="" dir="auto">Aquí debemos analizar:</p><p id="3e5a4320-7a2c-80ac-9c4f-dbfc3abb6615" class="" dir="auto"><strong>¿Cuántos agaves deberían existir entre estos dos agaves visibles?.</strong></p><p id="3e5a4320-7a2c-802d-bebc-c8238db89a67" class="" dir="auto">Por ejemplo, si normalmente existe espacio para un agave entre dos plantas, entonces tenemos <strong>un agave faltante</strong>.</p><p id="3e5a4320-7a2c-80f6-9ff9-c850f5e838ff" class="" dir="auto">Si el espacio permite que deberían existir dos agaves, entonces tenemos <strong>dos agaves faltantes</strong>.</p><p id="3e5a4320-7a2c-8053-ada4-ec0bb6448303" class="" dir="auto">La idea fundamental es:</p><blockquote id="3e5a4320-7a2c-8078-adaf-cb8b1cd44363" class="" dir="auto"><strong>No contamos espacios; contamos agaves faltantes.</strong></blockquote><p id="3eca4320-7a2c-801f-ae9f-c4a6da0c48c2" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-80a2-be18-e94a750c4966" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"><strong>E</strong><strong>VALUACIÓN:</strong></p><p id="3eca4320-7a2c-80fd-b6b6-d7d0174c8331" class="" dir="auto">Determinar si el espacio se debe completar o no hacer dos ejercicios uno donde si otro donde no</p><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3e6a4320-7a2c-80a5-8130-e387d8d25057" dir="ltr"><div style="width:100%"><ol type="1" id="3e6a4320-7a2c-800c-a913-c2f6e6c8e83d" class="numbered-list" start="1" dir="auto"><li><strong>¿El espacio marcado en rojo debe completarse?</strong></li></ol><p id="3e6a4320-7a2c-8091-88e7-c5bd65ab60d9" class="" dir="auto">Observa la imagen y determina si el espacio señalado debe completarse.</p><figure id="3e6a4320-7a2c-803a-8317-f0b0b2c416a8" class="image" data-notion-image="image%2018.png" dir="ltr"><a href="image%2018.png"><img style="width:384px" src="image%2018.png"/></a></figure><p id="3e6a4320-7a2c-8011-9e9b-e98bf2e27679" class="" dir="auto"><strong>Respuesta correcta: Sí.</strong> El espacio se encuentra sobre la <strong>línea de plantación</strong> y, en esta sección, es evidente que no hay plantas. Por lo tanto, <strong>debe completarse como hueco</strong>.</p><figure id="3e6a4320-7a2c-8048-ac05-f7ba0c6a4e0a" class="image" data-notion-image="d83d8845-f129-4706-87df-52d3048076b0.png" dir="ltr"><a href="d83d8845-f129-4706-87df-52d3048076b0.png"><img style="width:389.9787685774947px" src="d83d8845-f129-4706-87df-52d3048076b0.png"/></a></figure></div></aside><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3e6a4320-7a2c-80f9-a770-e81860be0ca9" dir="ltr"><div style="width:100%"><ol type="1" id="3e6a4320-7a2c-801b-9d22-c7d0cfb6ad04" class="numbered-list" start="2" dir="auto"><li><strong>¿Los espacios marcados en rojo deben completarse?</strong><figure id="3e6a4320-7a2c-8071-a92e-f85cf17b76c9" class="image" data-notion-image="dd39f55a-d4b0-4c52-8373-778b173898d5.png" dir="ltr"><a href="dd39f55a-d4b0-4c52-8373-778b173898d5.png"><img style="width:179.06735751295335px" src="dd39f55a-d4b0-4c52-8373-778b173898d5.png"/></a></figure><p id="3e6a4320-7a2c-806a-bf9c-e4defe2a73f5" class="" dir="auto"><strong>Respuesta correcta: No.</strong> Las líneas de plantación no son continuas y presentan algunos <strong>montículos que interrumpen su recorrido</strong>. Esto indica que en esos puntos <strong>no se realizó la plantación de agaves</strong>, por lo que los espacios señalados <strong>no deben completarse</strong>.</p><figure id="3e6a4320-7a2c-80df-880a-c419c5c7fb64" class="image" data-notion-image="aabaa340-e7f5-4010-a459-1a0343341beb.png" dir="ltr"><a href="aabaa340-e7f5-4010-a459-1a0343341beb.png"><img style="width:189.58333333333334px" src="aabaa340-e7f5-4010-a459-1a0343341beb.png"/></a></figure></li></ol></div></aside><hr id="3eca4320-7a2c-806f-8489-e889bd10b0b4" dir="auto"/><h3 id="3e5a4320-7a2c-80db-bd20-fb39a85d64e9" class="" dir="auto">4.5. Cómo pensar frente a un espacio vacío:</h3><p id="3e5a4320-7a2c-8014-9c2d-fb4adeff7100" class="" dir="auto">Cada vez que encontremos un espacio que parezca sospechoso, seguir este razonamiento:</p><p id="3e5a4320-7a2c-8034-b71f-c6b2f5f7fc48" class="" dir="auto"><strong>1. Identifico los agaves visibles a ambos lados.</strong></p><p id="3e5a4320-7a2c-8060-8b8a-f490bc6a32c9" class="" dir="auto"><strong>2. Observo la distancia de centro a centro.</strong></p><p id="3e5a4320-7a2c-80f1-8ada-d4de5b1e416c" class="" dir="auto"><strong>3. Comparo esa distancia con la distancia normal de plantación.</strong></p><p id="3e5a4320-7a2c-80a5-a5a9-ebf654130f48" class="" dir="auto"><strong>4. Determino cuántos agaves deberían existir dentro de ese espacio.</strong></p><p id="3e5a4320-7a2c-80c9-9cb9-df377fc9202e" class="" dir="auto"><strong>5. Si falta un agave, determino si corresponde a HUECO o NO VISIBLE según lo aprendido anteriormente.</strong></p><p id="3e5a4320-7a2c-8088-9289-d711ac5698ba" class="" dir="auto"><strong>6. Si únicamente corresponde a la separación normal entre plantas, no coloco ninguna anotación.</strong></p><p id="3e6a4320-7a2c-8077-9f8e-c33cd71b8598" class="block-color-teal_background" data-notion-highlight="teal_background" dir="auto"> <strong>EVALUACIÓN:</strong></p><div data-notion-highlight="gray_background" dir="auto"><ol type="1" id="3e6a4320-7a2c-8039-9865-e836f206f054" class="block-color-gray_background numbered-list" data-notion-highlight="gray_background" start="1"><li><strong>¿La sección de la imagen debe completarse? Si es así, ¿cómo la completarías?</strong><strong>.</strong><figure id="3e6a4320-7a2c-805f-b023-d0f143766de1" class="image" data-notion-image="5d95a85e-581c-4586-adaf-11e9f8d3366a.png" dir="ltr"><a href="5d95a85e-581c-4586-adaf-11e9f8d3366a.png"><img style="width:267.8962536023055px" src="5d95a85e-581c-4586-adaf-11e9f8d3366a.png"/></a></figure><p id="3e6a4320-7a2c-80e8-9031-c6dbb4925e9b" class="" dir="auto">En esta sección se observan algunas <strong>plantas pequeñas</strong>. Primero debemos marcarlas para tomar en cuenta su ubicación y mantener la <strong>distancia de plantación</strong> al completar el área.</p><figure id="3e6a4320-7a2c-80bb-a279-cd76ed2292e8" class="image" data-notion-image="7065f930-c286-4979-a094-69defdb19a1d.png" dir="ltr"><a href="7065f930-c286-4979-a094-69defdb19a1d.png"><img style="width:267.8962536023055px" src="7065f930-c286-4979-a094-69defdb19a1d.png"/></a></figure><p id="3e6a4320-7a2c-808e-915a-db0a5c966947" class="" dir="auto">Como la zona <strong>no presenta maleza que impida observarla</strong>, los espacios restantes deben completarse como <strong>huecos</strong>.</p><figure id="3e6a4320-7a2c-80da-ac97-e19b8163972c" class="image" data-notion-image="2fb5de8e-1d79-4aa1-b4cb-ea8d59850023.png" dir="ltr"><a href="2fb5de8e-1d79-4aa1-b4cb-ea8d59850023.png"><img style="width:268.67052023121386px" src="2fb5de8e-1d79-4aa1-b4cb-ea8d59850023.png"/></a></figure></li></ol></div><p id="3eca4320-7a2c-806c-a12f-c41835aad22c" class="" dir="auto">
+</p><div data-notion-highlight="gray_background" dir="auto"><ol type="1" id="3e6a4320-7a2c-80cd-ba4e-d8f5c097c362" class="block-color-gray_background numbered-list" data-notion-highlight="gray_background" start="2"><li><strong>¿La sección de la imagen debe completarse? Si es así, ¿Cómo la completarías?.</strong><figure id="3e6a4320-7a2c-806e-9352-c377729bc7ca" class="image" data-notion-image="a12c5a75-a856-4a71-a1c5-ab2f27c5421e.png" dir="ltr"><a href="a12c5a75-a856-4a71-a1c5-ab2f27c5421e.png"><img style="width:307.1297989031079px" src="a12c5a75-a856-4a71-a1c5-ab2f27c5421e.png"/></a></figure><p id="3e6a4320-7a2c-80dd-b35b-c7674fe52098" class="" dir="auto"><strong>Sí.</strong> La sección debe completarse con <strong>NV</strong>, ya que, aunque la hilera de plantación muestra continuidad, la maleza <strong>impide observar qué hay debajo</strong> y no permite confirmar si existe un agave o si el espacio está vacío.</p><figure id="3e6a4320-7a2c-80fc-8022-dc2c99d08c3f" class="image" data-notion-image="be18f24e-cd00-48df-a266-5dfe00284f1d.png" dir="ltr"><a href="be18f24e-cd00-48df-a266-5dfe00284f1d.png"><img style="width:303.2490974729242px" src="be18f24e-cd00-48df-a266-5dfe00284f1d.png"/></a></figure></li></ol></div><details id="3e5a4320-7a2c-801d-af63-f3e9d73b6fd1" open="" class="toggle" dir="auto"><summary>Errores en distancia</summary><div class="indented"><h3 id="3e5a4320-7a2c-802c-9c88-fbce847d0100" class="" dir="auto">1.Llenar todos los espacios</h3><p id="3e5a4320-7a2c-80c2-b8f2-daff25446ae0" class="" dir="auto">Un error frecuente es colocar una anotación cada vez que se observa una separación entre agaves.</p><p id="3e5a4320-7a2c-800e-b70d-db5372d6f91c" class="" dir="auto"><strong>Incorrecto:</strong></p><p id="3e5a4320-7a2c-8007-b2e1-e0f18ebbfa8e" class="" dir="auto">“Veo espacio → pongo hueco.”</p><p id="3e5a4320-7a2c-80bd-8323-d248eca4006b" class="" dir="auto"><strong>Correcto:</strong></p><p id="3e5a4320-7a2c-809d-8a3c-db39a419285b" class="" dir="auto">“Veo espacio → compruebo la distancia → determino cuántos agaves deberían estar ahí → después decido si corresponde hueco/no visible.”</p><ol type="1" id="3e5a4320-7a2c-80da-b7fe-f1ff681024a2" class="numbered-list" start="2" dir="auto"><li>No llenar los espacios con la cantidad correcta </li></ol><p id="3e5a4320-7a2c-80f5-9423-ed0d0e7e8d30" class="" dir="auto">Un error frecuente es llenar los espacios con anotación extra o con menos anotación </p><p id="3e5a4320-7a2c-8073-a9b0-d86d40996932" class="" dir="auto">Ejemplos: </p><ul id="3e5a4320-7a2c-80f2-89c5-eadc962eb9cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Distancia normal → no se anota nada.</strong></li></ul><ul id="3e5a4320-7a2c-8075-8297-c7bd914198b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Distancia equivalente a un faltante → 1 hueco/no visible.</strong></li></ul><ul id="3e5a4320-7a2c-80f6-ae9c-f1f0fb460efd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Distancia equivalente a dos faltantes → 2 huecos/no visibles.</strong></li></ul><ul id="3e5a4320-7a2c-8036-8fed-d099ab47ed84" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Espacio irregular → analizar antes de anotar.</strong></li></ul><ul id="3e5a4320-7a2c-80d7-a713-f225208f75e6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Varios agaves faltantes → determinar cuántos corresponden.</strong></li></ul><ul id="3e5a4320-7a2c-803c-b4e7-dd25464d3edd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comparación de ejemplos correctos e incorrectos.</strong></li></ul><p id="3e6a4320-7a2c-80ad-b274-fb40d8eb6e6f" class="" dir="auto">Evaluación: qué esta mal en la imagen?</p><ul id="3e6a4320-7a2c-807a-864c-c1c61e112508" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Faltó colocar huecos en algunos espacios</li></ul><ul id="3e6a4320-7a2c-8075-94f8-f3cfb62d8ee7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se debían colocar no visibles </li></ul><ul id="3e6a4320-7a2c-809a-b800-c5280f9b9b27" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se colocaron muchos huecos de más </li></ul><p id="3e9a4320-7a2c-8069-83a6-fe4448a732e7" class="" dir="auto"><strong>Respuesta Correcta</strong>: C</p><ul id="3e9a4320-7a2c-8083-93b0-e498681521d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Explicación pedagógica</strong>: Recuerda que cada hueco o no visible simboliza que hace falta un agave por lo que debe respetar la cantidad de agave que harían falta, respetando la distancia que tienen entre si los agaves</li></ul><figure id="3e6a4320-7a2c-8068-8aa6-db1718b4b63f" class="image" data-notion-image="image%2019.png" dir="ltr"><a href="image%2019.png"><img style="width:627.96875px" src="image%2019.png"/></a></figure><p id="3e6a4320-7a2c-805d-a176-ca75179367a1" class="" dir="auto">Evaluación</p><p id="3e6a4320-7a2c-8054-8d98-e76957617405" class="" dir="auto">Evaluación: qué esta mal en la imagen, en relación a los huecos?</p><ul id="3e6a4320-7a2c-80d1-b9fa-d275606e9344" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se pusieron menos huecos de los que hacían falta</li></ul><ul id="3e6a4320-7a2c-80bd-a691-e7af819416f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No hay nada mal en  la imagen, los huecos están bien </li></ul><ul id="3e9a4320-7a2c-8006-a2e1-fd919b9a7db0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se pusieron más huecos de los que hacían falta.</li></ul><p id="3e9a4320-7a2c-8064-ac04-ff966b1a6274" class="" dir="auto"><strong>Respuesta Correcta</strong>: A</p><ul id="3e9a4320-7a2c-80bb-a236-e0267534c625" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Explicación pedagógica</strong>: Con los huecos debemos de representar la cantidad real de plantas que debería de haber y no hay, siguiendo el mismo patron de distancia que tienen los agaves para colocar los huecos</li></ul><figure id="3e6a4320-7a2c-800d-b077-e70347c1dd92" class="image" data-notion-image="image%2020.png" dir="ltr"><a href="image%2020.png"><img style="width:533.96875px" src="image%2020.png"/></a></figure><p id="3e6a4320-7a2c-80d4-b1ee-e16656d03fdc" class="" dir="auto">
+</p><p id="3e5a4320-7a2c-807d-9a81-fb37f5b6f8a4" class="" dir="auto">
+</p></div></details><p id="3eca4320-7a2c-80ab-b024-f5cd1b267e00" class="" dir="auto">
+</p></div></details><details id="3e5a4320-7a2c-8099-b7ac-c3c14ceba8c4" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Módulo 3 / Cómo trabajar correctamente las líneas de plantación.</mark></summary><div class="indented"><details id="3e5a4320-7a2c-8077-997f-da729cb8fb65" open="" class="toggle" dir="auto"><summary><mark class="highlight-yellow_background" data-notion-highlight="yellow_background">Árboles</mark></summary><div class="indented"><p id="3e5a4320-7a2c-805c-a9b8-fc5f62e3734a" class="" dir="auto"><strong>Agaves debajo del árbol</strong></p><p id="3e5a4320-7a2c-8034-90c2-d0764a88ed33" class="" dir="auto">Debajo de los árboles NO SE PLANTAN AGAVES por lo tanto las líneas NO se deben continuar</p><p id="3e5a4320-7a2c-8000-8fea-e2385dd50a2d" class="" dir="auto">Ejemplo:</p><figure id="3e5a4320-7a2c-80f6-b8e6-f2fe2272d7ed" class="image" data-notion-image="image6.png" dir="ltr"><a href="image6.png"><img style="width:652.9861450195312px" src="image6.png"/></a></figure><p id="3e5a4320-7a2c-8018-885c-e2e4088a7769" class="" dir="auto"><strong>EXCEPCIÓN:</strong></p><p id="3e5a4320-7a2c-804b-8589-cb4e73e5edbd" class="" dir="auto">Si identificas agaves debajo del árbol etiquetalo y completa esa línea con no visibles solamente hasta el último agave visible.</p><p id="3e6a4320-7a2c-80ab-a2cf-dc3c1b7bc587" class="" dir="auto"><strong>EVALUACIÓN:</strong></p><ol type="1" id="3e6a4320-7a2c-8043-8fae-de894dce371e" class="numbered-list" start="1" dir="auto"><li>Observa la siguiente imagen y responde. ¿Se debe completar el área señalada por la flechas rojas?</li></ol><ul id="3e6a4320-7a2c-80aa-ad17-ec3d733915b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si, se debe completar la línea</li></ul><ul id="3e6a4320-7a2c-8000-913c-fdf569177d2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No, porque hay un árbol y no se ven agaves visibles</li></ul><ul id="3e6a4320-7a2c-8020-a776-f00035a85e25" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se completa parcialmente<p id="3e9a4320-7a2c-8052-93e2-d238b228d939" class="" dir="auto"><strong>Respuesta Correcta</strong>: C ]</p><p id="3e9a4320-7a2c-804c-843f-e72d276001b2" class="" dir="auto"><strong>Explicación pedagógica</strong>: se completa parcialmente, solamente el área de la última flecha donde si vemos un agave visible]</p></li></ul><p id="3e9a4320-7a2c-80d1-b398-c0d8353bc271" class="" dir="auto"><div class="indented"><figure id="3e6a4320-7a2c-80b2-81f9-c93c6cae6920" class="image" data-notion-image="image%2021.png" dir="ltr"><a href="image%2021.png"><img style="width:628.09033203125px" src="image%2021.png"/></a></figure></div></p><ol type="1" id="3e6a4320-7a2c-80d0-b48c-f5368b108fae" class="numbered-list" start="2" dir="auto"><li><strong>Observa la siguiente imagen y responde. El área señalada con una flecha amarilla, ¿está anotada de manera correcta?.</strong> </li></ol><ul id="3e6a4320-7a2c-80f7-842d-f0991cc03190" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No, ya que hay un árbol y no se completa. </li></ul><ul id="3e6a4320-7a2c-802f-841a-e7a13b090efe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si la línea se debe completar con huecos.</li></ul><ul id="3e6a4320-7a2c-807e-97f7-c135a81be846" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No, porque deberían ser no visibles.</li></ul><p id="3e9a4320-7a2c-80de-b5f0-d70402ba8862" class="" dir="auto"><strong>Respuesta Correcta</strong>: [A.</p><p id="3e9a4320-7a2c-80e2-b93a-ee81cb10bb61" class="" dir="auto"><strong>Explicación pedagógica</strong>:</p><p id="3e9a4320-7a2c-80d7-b89a-e452878fd637" class="" dir="auto">No se completa porque cuando vemos un árbol y no tiene agaves debajo la fila se debe dejar hasta el último agave visible.</p><figure id="3e6a4320-7a2c-80ae-84c5-e0ca0553e38d" class="image" data-notion-image="image%2022.png" dir="ltr"><a href="image%2022.png"><img style="width:570.984375px" src="image%2022.png"/></a></figure><p id="3e5a4320-7a2c-80a2-b949-cd3e72c156f0" class="" dir="auto">
+</p><p id="3e5a4320-7a2c-8071-80b6-e255da3287a5" class="" dir="auto">
+</p></div></details><details id="3e5a4320-7a2c-80c7-9b8b-cef0fe5c4008" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Piedras.</mark></summary><div class="indented"><p id="3e5a4320-7a2c-80b2-841b-fd1dbd2cadb7" class="" dir="auto"><strong>Agaves bajo piedras</strong></p><p id="3e9a4320-7a2c-80b1-ac9d-ffd9ec7b3521" class="" dir="auto">En ocasiones hay piedras dentro de la línea de plantación.</p><p id="3e9a4320-7a2c-809b-bc09-f1497299240f" class="" dir="auto"><strong>NO</strong> se debe continuar la línea cuando las piedras se vean como en la siguiente foto</p><p id="3e9a4320-7a2c-80a3-901b-db243d43b48c" class="" dir="auto">Solo en caso de que haya un agave visible debajo de la piedra se anota como AGAVE</p><p id="3e5a4320-7a2c-80a0-8234-e535c107771f" class="" dir="auto">Ejemplo:</p><div id="3e5a4320-7a2c-80f1-bb7e-e02b739a31f9" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-806d-b5e7-de8a8af9b99c" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-8050-91b5-d0700aca6b49" class="image" data-notion-image="image5.png" dir="ltr"><a href="image5.png"><img style="width:256.9965515136719px" src="image5.png"/></a></figure></div><div id="3e5a4320-7a2c-80de-97fe-d110df531595" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-809b-b837-e84cca765885" class="image" data-notion-image="image8.png" dir="ltr"><a href="image8.png"><img style="width:555.9896240234375px" src="image8.png"/></a></figure></div></div><p id="3e5a4320-7a2c-8080-82b0-eafde32a8603" class="" dir="auto"><strong>NOTA: La anotación de esta imagen se realiza únicamente con fines ilustrativos. Se utiliza para demostrar que no es necesario completar las líneas cuando hay rocas presentes. Sin embargo muchas de las etiquetas de esta anotación no son adecuadas.</strong></p><p id="3e9a4320-7a2c-801c-8c3a-cea75d07acae" class="" dir="auto">Únicamente si parece que hubo intenciones de continuar la plantación de agaves o cuando las piedras <strong>son muy chicas</strong> se <strong>completa</strong> la línea con huecos.</p><p id="3e5a4320-7a2c-8084-93ab-cee726de50af" class="" dir="auto"><strong>Ejemplo:</strong> En esta imagen, podemos ver que casi todo el suelo tiene piedras y, aun así, se plantaron los agaves. Por lo tanto, en este caso, podemos poner huecos donde corresponda.</p><figure id="3e5a4320-7a2c-80a7-b8ec-f99ea675cf65" class="image" data-notion-image="image%2023.png" dir="ltr"><a href="image%2023.png"><img style="width:627.984375px" src="image%2023.png"/></a></figure></div></details><details id="3e5a4320-7a2c-809c-859f-e15c2ce8a660" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Hijuelos.</mark></summary><div class="indented"><p id="3e5a4320-7a2c-8055-b9c9-e42007989c1b" class="" dir="auto"><strong>Hijuelo.</strong></p><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-icon="🚨" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3e5a4320-7a2c-8084-a19c-c29259aa87e1" dir="ltr"><div style="font-size:1.5em"><span class="icon" data-emoji="🚨"></span></div><div style="width:100%">¿Qué es un hijuelo?<ul id="3e5a4320-7a2c-80bd-85ed-d5d67e7ab512" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los hijuelos son pequeños agaves que nacieron después.</li></ul><p id="3e5a4320-7a2c-80d1-aa9f-d095da291e50" class="" dir="auto">¿Cómo saber qué es un hijuelo?</p><ol type="1" id="3e5a4320-7a2c-80e8-ac9b-c464d3f74c62" class="numbered-list" start="1" dir="auto"><li>Son más pequeños que los agaves plantados originalmente</li></ol><ol type="1" id="3e5a4320-7a2c-8055-b949-c653ca6ca60a" class="numbered-list" start="2" dir="auto"><li>Nacen a lado de los agaves</li></ol><ol type="1" id="3e5a4320-7a2c-80ee-b24a-d9e7e5968ac3" class="numbered-list" start="3" dir="auto"><li>No están dentro de las líneas donde se plantaron todos los agaves</li></ol><p id="3e5a4320-7a2c-805a-8f7f-e049c03ae880" class="" dir="auto">En esta imagen podemos ver a los hijuelos dentro de círculos amarillos. Las líneas donde se plantan los agaves están señaladas con rojo.</p><p id="3e5a4320-7a2c-80f3-93ae-dd65112f64ee" class="" dir="auto"><strong>Por lo tanto, todos los agaves que estén fuera de las líneas rojas son los hijuelos</strong></p><figure id="3e5a4320-7a2c-80b8-bef2-c39a003c1cd1" class="image" data-notion-image="image3%201.png" dir="ltr"><a href="image3%201.png"><img style="width:700px" src="image3%201.png"/></a></figure><aside class="block-color-gray_background callout" data-notion-callout="" data-notion-callout-icon="⚠️" data-notion-callout-background="gray_background" style="white-space:pre-wrap;display:flex" id="3e5a4320-7a2c-80f0-a879-f85b777b8099" dir="ltr"><div style="font-size:1.5em"><span class="icon" data-emoji="⚠️"></span></div><div style="width:100%"><strong>Importante:</strong> Los hijuelos no se marcan con cuadros rojos!<p id="3e5a4320-7a2c-802a-a074-e0c9053fcb11" class="" dir="auto">Todos los agaves que estén <strong><span style="border-bottom:0.05em solid">fuera de las líneas</span></strong> rojas (de plantación) <strong><span style="border-bottom:0.05em solid">no se deben marcar!!!</span></strong></p></div></aside></div></aside></div></details><details id="3e5a4320-7a2c-80b7-8991-e5164c88de1f" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Montículos.</mark></summary><div class="indented"><p id="3e5a4320-7a2c-8073-bf24-c533a4f7e56f" class="" dir="auto"><strong>Montículos</strong></p><p id="3e5a4320-7a2c-80be-bfed-c84f8aadf285" class="" dir="auto">Los montículos son unas pequeñas montañas de tierra, en muchas ocasiones con piedras y maleza.</p><p id="3e5a4320-7a2c-802d-8110-e2ceae26a6dd" class="" dir="auto">En estos casos NO debes completar el área del montículo.</p><figure id="3e5a4320-7a2c-8051-8a64-cb716387590f" class="image" data-notion-image="image2.png" dir="ltr"><a href="image2.png"><img style="width:584px" src="image2.png"/></a></figure><p id="3e5a4320-7a2c-802b-b825-e21281325acd" class="" dir="auto"><mark class="highlight-red" data-notion-highlight="red"><strong>*La línea roja tampoco debe completarse a menos que se vean agaves plantados</strong></mark></p><h2 id="3e5a4320-7a2c-80d3-b3fc-ec89ffb13824" class="" dir="auto"><strong>Ejemplos de monticulos</strong></h2><div id="3e5a4320-7a2c-802f-9ae5-d70f2950fc3f" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-80b4-9250-c0c400b2891d" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><h3 id="3e5a4320-7a2c-804b-92c3-dfce6207dd55" class="" dir="auto">Monticulo removido</h3></div><div id="3e5a4320-7a2c-8012-bd44-eb6d0c00d000" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><h3 id="3e5a4320-7a2c-8018-8b76-de83abcc2249" class="" dir="auto">Monticulos con maleza</h3></div></div><div id="3e5a4320-7a2c-8042-b5a9-eb7547a88130" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-8085-887e-e03654b8c5e1" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-8026-b748-ce5f5d37c289" class="image" data-notion-image="Monticulo_removido.webp" dir="ltr"><a href="Monticulo_removido.webp"><img style="width:331px" src="Monticulo_removido.webp"/></a></figure><h3 id="3e5a4320-7a2c-8078-ac96-d1c731d3a4f3" class="" dir="auto">Monticulo seco</h3><figure id="3e5a4320-7a2c-8004-8154-d85352763d47" class="image" data-notion-image="5514c6cc-8d46-419a-9295-8b53ca8457a0.png" dir="ltr"><a href="5514c6cc-8d46-419a-9295-8b53ca8457a0.png"><img style="width:339.64194373401534px" src="5514c6cc-8d46-419a-9295-8b53ca8457a0.png"/></a></figure><p id="3e5a4320-7a2c-805b-a520-f22c31154c39" class="" dir="auto">En ninguno de estos casos se debe anotar en el área del montículo.</p></div><div id="3e5a4320-7a2c-80d4-9ed2-c92942b1b11f" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-8030-9fe2-c41d7d01efbb" class="image" data-notion-image="8caa86e9-7c48-4926-bd80-92a8d38a445d.png" dir="ltr"><a href="8caa86e9-7c48-4926-bd80-92a8d38a445d.png"><img style="width:335.53398058252424px" src="8caa86e9-7c48-4926-bd80-92a8d38a445d.png"/></a></figure><figure id="3e5a4320-7a2c-809a-a02d-de689e7f68d6" class="image" data-notion-image="69d687b9-14e8-4d6a-bcd7-a983bc1301e5.png" dir="ltr"><a href="69d687b9-14e8-4d6a-bcd7-a983bc1301e5.png"><img style="width:432px" src="69d687b9-14e8-4d6a-bcd7-a983bc1301e5.png"/></a></figure><p id="3e5a4320-7a2c-8085-80b7-d3dda81f5334" class="" dir="auto">
+</p></div></div><p id="3e5a4320-7a2c-802e-8201-e594a485533e" class="" dir="auto">En los casos donde veas montículos, se deben de dejar las líneas hasta el último agave visible y ya no anotar nada después.</p><p id="3e6a4320-7a2c-8049-8d51-ef61f33abc36" class="" dir="auto">Evaluación</p><p id="3e6a4320-7a2c-8094-8e31-db999d0752e2" class="" dir="auto"><strong>¿Qué se debe hacer en el siguiente caso?.</strong></p><ul id="3e6a4320-7a2c-8000-93c5-e85ff6bda466" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Completar toda la línea con huecos porque si se ve la tierra.</li></ul><ul id="3e6a4320-7a2c-8096-8419-f7f289e0f872" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Completar toda la línea con no visibles porque hay maleza en la zona señalada.</li></ul><ul id="3e6a4320-7a2c-8064-a23a-fe5120cc03e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Completar hasta el último agave visible porque la zona señalada es un montículo.</li></ul><p id="3e6a4320-7a2c-80fc-a8ea-f9fb047a60d9" class="" dir="auto"><strong>Respuesta:</strong> Completar hasta el último agave visible porque la zona señalada es un montículo.</p><figure id="3e6a4320-7a2c-800a-9f12-c44577d4c548" class="image" data-notion-image="image%2024.png" dir="ltr"><a href="image%2024.png"><img style="width:545.984375px" src="image%2024.png"/></a></figure><p id="3e4a4320-7a2c-80a3-96bd-f91d514f2722" class="" dir="auto"><strong>Ejercicio 1.</strong> ¿Completarías las hileras en el área señalada en rojo?.</p><figure id="3e6a4320-7a2c-805c-a93e-db922419dc08" class="image" data-notion-image="image%2025.png" dir="ltr"><a href="image%2025.png"><img style="width:528px" src="image%2025.png"/></a></figure><p id="09b55083-d65b-41b0-bc88-47dc50227931" class="" dir="auto"><strong>Respuesta: No.</strong></p><p id="acbb10fd-2482-46dd-a0f2-496415ab249a" class="" dir="auto">En esta zona se observan dos elementos importantes: <strong>la concentración de maleza y el cúmulo de piedras</strong>. Estos elementos indican que se trata de un <strong>montículo donde no se realizó la plantación</strong>.</p><p id="7f659e76-17cf-47d1-98f2-efb09613e976" class="" dir="auto">Por lo tanto, <strong>esta zona no debe completarse</strong>.</p></div></details><details id="3e5a4320-7a2c-80bd-b395-f3be221f762a" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">C</mark><mark class="highlight-teal_background" data-notion-highlight="teal_background">aídas de agua</mark><mark class="highlight-teal_background" data-notion-highlight="teal_background">.</mark></summary><div class="indented"><p id="3e6a4320-7a2c-8011-85b9-f6c9dafc27dc" class="" dir="auto"><strong>Caídas de agua.</strong></p><p id="3e6a4320-7a2c-8012-b9b8-c75b628ef7d4" class="" dir="auto">En algunos predios encontrarás canales por donde corre el agua. Estos canales atraviesan la plantación.</p><p id="3e6a4320-7a2c-8030-955b-dfd9aad6c49e" class="" dir="auto">No se deben colocar ni huecos ni agaves.</p><hr id="3e6a4320-7a2c-80f0-9993-dceb410cfd56" dir="auto"/><div id="3e6a4320-7a2c-8062-ba75-dae1af39467e" class="column-list" data-notion-column-list="" dir="auto"><div id="3e6a4320-7a2c-80ad-a8a2-ee217cb0e9bd" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e6a4320-7a2c-80ec-975e-f60161a35afb" class="" dir="auto">
+</p><figure id="3e6a4320-7a2c-802f-b43c-f041ffdb783e" class="image" data-notion-image="Canales_de_agua.jpg" dir="ltr"><a href="Canales_de_agua.jpg"><img style="width:330.97222900390625px" src="Canales_de_agua.jpg"/></a></figure></div><div id="3e6a4320-7a2c-80a4-8336-d8ee80284ad2" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-80d2-a996-f0681654d2e3" class="image" data-notion-image="surco.jpg" dir="ltr"><a href="surco.jpg"><img style="width:330.97222900390625px" src="surco.jpg"/></a></figure><p id="3e6a4320-7a2c-809b-b689-e291bcebbde1" class="" dir="auto">
+</p></div></div><p id="3e6a4320-7a2c-804a-860c-c89bc7d5c21e" class="" dir="auto">Como puedes ver en algunas ocasiones se hacen surcos, en este caso donde la separación es muy evidente no completaremos las hileras con huecos.</p><p id="3e6a4320-7a2c-80a6-aa1d-fd0fed4b93af" class="" dir="auto">
+</p><figure id="3e6a4320-7a2c-80b9-a303-ca7e558fa44c" class="image" data-notion-image="image8%201.png" dir="ltr"><a href="image8%201.png"><img style="width:700px" src="image8%201.png"/></a></figure><p id="3e6a4320-7a2c-80a9-a48a-f67ef5743706" class="" dir="auto">
+</p></div></details></div></details><details id="3e5a4320-7a2c-800c-9143-f21437902de9" open="" class="toggle" dir="auto"><summary>Módulo 4  / Situaciones especiales y tipos de tareas.</summary><div class="indented"><details id="3e5a4320-7a2c-80e2-a359-f3d082b23eab" open="" class="toggle" dir="auto"><summary>Microplantación.</summary><div class="indented"><p id="3e5a4320-7a2c-80b9-a7f7-fa5160d0365b" class="" dir="auto"><strong>¿Cómo identificar una tarea de microplantación?.</strong></p><ul id="3e5a4320-7a2c-8041-9664-fa89b9949445" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cómo reconocerla por el código de la tarea.<ul id="3e5a4320-7a2c-8016-aefc-cfd78ee71d99" class="bulleted-list" dir="auto"><li style="list-style-type:circle"> las tareas correspondientes a <strong>26</strong> durante 2026 son las que pueden trabajarse con puntos, y en el siguiente año serían las correspondientes a <strong>27</strong>.<ul id="3e5a4320-7a2c-80ab-a98f-f943630539c5" class="bulleted-list" dir="auto"><li style="list-style-type:square">EJ: N<mark class="highlight-red" data-notion-highlight="red"><strong>26</strong></mark>057<strong>_13 </strong></li></ul><ul id="3e5a4320-7a2c-8033-b2e2-d2322c8578dd" class="bulleted-list" dir="auto"><li style="list-style-type:square">Ej siguiente año: N<mark class="highlight-red" data-notion-highlight="red"><strong>27</strong></mark>045_01</li></ul></li></ul></li></ul><h3 id="3e5a4320-7a2c-80f9-91d4-dc4881e6d5c8" class="" dir="auto">1. ¿Qué cambia en una microplantación?.</h3><ul id="3e5a4320-7a2c-8098-85da-cc0013384a6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los agaves son muy pequeños porque fueron plantados recientemente.</li></ul><ul id="3e5a4320-7a2c-8058-b90b-fbbbbb10954a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo se anotan los</strong><mark class="highlight-red" data-notion-highlight="red"><strong> agaves.</strong></mark></li></ul><ul id="3e5a4320-7a2c-806d-9b1c-ce0676944224" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>NO se colocan huecos ni no visibles.</strong></li></ul><ul id="3e5a4320-7a2c-8042-b2bb-ca77bf70dc64" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se utiliza <mark class="highlight-red" data-notion-highlight="red"><strong>un punto</strong></mark><strong> por cada agave</strong>, no BB.</li></ul><ul id="3e5a4320-7a2c-80f7-8915-d2783a0a62ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La herramienta principal para ubicarlos es la <strong>distancia de plantación</strong>.</li></ul><div id="3eda4320-7a2c-804a-bb4a-cb30b4d30640" class="column-list" data-notion-column-list="" dir="auto"><div id="3eda4320-7a2c-804f-bc9c-f1a1581e56df" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3eda4320-7a2c-8043-9d70-dad329c9a379" class="image" data-notion-image="Screenshot_29.jpg" dir="ltr"><a href="Screenshot_29.jpg"><img style="width:627.96875px" src="Screenshot_29.jpg"/></a></figure></div><div id="3eda4320-7a2c-800f-9e3c-f08d8d5faeaa" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3eda4320-7a2c-80a5-9594-e18145b75520" class="image" data-notion-image="image_(23).png" dir="ltr"><a href="image_(23).png"><img style="width:1055px" src="image_(23).png"/></a></figure></div></div><p id="3e9a4320-7a2c-8041-8b43-c6792b665159" class="" dir="auto">
+</p><details id="3e9a4320-7a2c-80c0-96ce-d6518eb7ebe1" open="" class="toggle" dir="auto"><summary>Nueva Herramienta.</summary><div class="indented"><p id="3e5a4320-7a2c-807a-8cc5-d49dd21ccc7a" class="" dir="auto">¡Importante! Esta herramienta está diseñada para <strong>hacer tu trabajo más rápido y sencillo</strong>, pero <strong>por ahora solo se usa en casos específicos</strong>:</p><p id="3e5a4320-7a2c-805d-9cb6-d6fc04e7e95f" class="" dir="auto">🔹 <strong>Predios de microplantación</strong>: Úsala <strong>para completar agaves.</strong></p><p id="3e5a4320-7a2c-80ca-b063-c59dbe43dad3" class="" dir="auto">🔹 <strong>Predios normales</strong>: <mark class="highlight-default" data-notion-highlight="default">Aquí </mark><mark class="highlight-default" data-notion-highlight="default"><strong>solo debes usarla para marcar</strong></mark><mark class="highlight-red" data-notion-highlight="red"><strong> huecos y plantas no visibles</strong></mark><mark class="highlight-red" data-notion-highlight="red">. </mark>Los agaves en estos predios <strong>deben hacerse con Bb NUNCA con puntos</strong></p><p id="3e5a4320-7a2c-80a2-9bf3-caee3cd52bd4" class="" dir="auto">✳️ Recuerda: Si tienes dudas sobre qué predios usar con esta herramienta, ¡pregunta antes de empezar!.</p><p id="3e9a4320-7a2c-808a-8ca7-faa948e87ac6" class="" dir="auto">La herramienta funciona en <strong>dos pasos</strong></p><p id="3e9a4320-7a2c-8009-8bc8-efd805808216" class="" dir="auto"><strong>Guardar una referencia de distancia entre agaves</strong></p><ul id="3e9a4320-7a2c-80e9-ab12-c4fa2f4121e9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Presionen <strong>K</strong> para activar el modo de <strong>puntos de referencia</strong>.</li></ul><ul id="3e9a4320-7a2c-8061-a1cc-d207b2ca5611" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Seleccionen algunos agaves <strong>en orden</strong> (mínimo <strong>5</strong>) para que el sistema pueda calcular la distancia de plantación entre ellos.</li></ul><figure id="3eaa4320-7a2c-806e-94c3-e663e4ee22bd" class="image" data-notion-image="2.png" dir="ltr"><a href="2.png"><img style="width:473.984375px" src="2.png"/></a></figure><p id="3eaa4320-7a2c-8007-a948-ec7bf96e0a80" class="" dir="auto">Precaución: Los puntos siempre deben de ir en el centro del agave!</p><ul id="3e9a4320-7a2c-80d5-9915-c79c918079c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Una vez seleccionados, presionen <strong>K</strong> nuevamente. Los puntos cambiarán a <strong>color rojo</strong>, indicando que la referencia quedó guardada.</li></ul><figure id="3eaa4320-7a2c-8055-8fd9-cd0b29e5671a" class="image" data-notion-image="3.png" dir="ltr"><a href="3.png"><img style="width:427.984375px" src="3.png"/></a></figure><p id="3eaa4320-7a2c-801c-950b-f060850564ff" class="" dir="auto">Cuidado: en este caso como los agaves ya tienen BB eliminamos los puntos rojos una vez generada la referencia de distancia que usaremos.</p><p id="3e9a4320-7a2c-801d-974d-ffeda71c2946" class="" dir="auto"><strong>Generar automáticamente los puntos de una hilera</strong></p><ul id="3e9a4320-7a2c-80c8-ba6b-e6be4a48e4b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Presionen <strong>J</strong> para activar la herramienta.</li></ul><ul id="3e9a4320-7a2c-808e-9e29-e219cd4a8263" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Den clic en el <strong>primer agave</strong> de la hilera y después uno o varios puntos a lo largo de la hilera, seleccionando únicamente agaves.</li></ul><ul id="3e9a4320-7a2c-80d9-92fc-c384b6537766" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Presionen <strong>J</strong> nuevamente y el sistema colocará automáticamente los puntos de los agaves, respetando la distancia que tomó de la referencia.</li></ul></div></details><p id="3eda4320-7a2c-803c-a8c2-e943ed392b2b" class="" dir="auto">Ejemplos:</p><p id="3eda4320-7a2c-8033-93bb-d7ace7ea41db" class="" dir="auto">En algunas microplantaciones, las imágenes pueden aparecer en <strong>blanco y negro</strong> debido al tipo de imagen (NDVI).</p><p id="3eda4320-7a2c-8003-be4a-f0151af6d50b" class="" dir="auto">En estos casos, los <strong>agaves se identifican como pequeños puntos o círculos blancos</strong>. Para reconocerlos, primero identifica las <strong>líneas de plantación</strong> y después observa el patrón y la distancia regular entre los puntos.</p><figure id="3eda4320-7a2c-8048-914a-f9ceb6483b7b" class="image" data-notion-image="image%2026.png" dir="ltr"><a href="image%2026.png"><img style="width:383.984375px" src="image%2026.png"/></a></figure></div></details></div></details><details id="3e5a4320-7a2c-80d6-a9d3-f089f01bf901" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Módulo 5 / Plataforma de trabajo.</mark></summary><div class="indented"><details id="3e5a4320-7a2c-80df-9883-f6378ef083fa" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Herramientas de cvat.</mark></summary><div class="indented"><details id="3e5a4320-7a2c-8039-807d-de6252d2b805" open="" class="toggle" dir="auto"><summary><strong>Bitmap.</strong></summary><div class="indented"><ul id="3e5a4320-7a2c-80b3-857f-ca2c1c969955" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Activar/desactivar bitmap.</li></ul><ul id="3e5a4320-7a2c-80b5-acaf-fbdb1fef7ea1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Usarlo para detectar:<ul id="3e5a4320-7a2c-8046-99aa-d0a405acf9c9" class="bulleted-list" dir="auto"><li style="list-style-type:circle">agaves que faltan,</li></ul><ul id="3e5a4320-7a2c-80bf-a55d-efeecc53a87c" class="bulleted-list" dir="auto"><li style="list-style-type:circle">BB fuera de la línea,</li></ul><ul id="3e5a4320-7a2c-8016-a0a2-e38978aa00da" class="bulleted-list" dir="auto"><li style="list-style-type:circle">BB que podrían estar cubriendo más de un agave,</li></ul><ul id="3e5a4320-7a2c-80b2-ac46-c86bb3eb5e8f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">espacios donde hay que revisar la anotación.</li></ul></li></ul><ul id="3e5a4320-7a2c-8038-accc-e169b526f78e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bitmap es una <strong>herramienta de apoyo</strong>, no una regla que sustituye la observación.</li></ul><div id="3e6a4320-7a2c-803d-bcc6-c3d5bfb5632c" class="column-list" data-notion-column-list="" dir="auto"><div id="3e6a4320-7a2c-80b3-b2a1-eb8c5f2d4720" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-8080-8cea-c820991d68a6" class="image" data-notion-image="e817849e-dc17-46d8-9880-2114d0936382.png" dir="ltr"><a href="e817849e-dc17-46d8-9880-2114d0936382.png"><img style="width:225.2115812917595px" src="e817849e-dc17-46d8-9880-2114d0936382.png"/></a></figure></div><div id="3e6a4320-7a2c-8068-9b85-c7b6463fa634" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-80f5-bf2a-d912da3be9ec" class="image" data-notion-image="image%2027.png" dir="ltr"><a href="image%2027.png"><img style="width:233.984375px" src="image%2027.png"/></a></figure></div></div></div></details><details id="3e5a4320-7a2c-8023-b808-e629688959c3" open="" class="toggle" dir="auto"><summary><strong>Opacidad.</strong></summary><div class="indented"><ul id="3e5a4320-7a2c-805e-aad6-ea8a54499569" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumentar/disminuir la opacidad.</li></ul><ul id="3e5a4320-7a2c-80ea-9af7-fde805532ea5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Para qué sirve?.<ul id="3e5a4320-7a2c-804e-821b-c47fb95d1c02" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Ver mejor los BB.</li></ul><ul id="3e5a4320-7a2c-80a2-9902-ee103ec53b7b" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Detectar BB duplicados.</li></ul><ul id="3e5a4320-7a2c-80d0-8b84-f9644fb6e4e9" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Detectar BB desfasados.</li></ul><ul id="3e5a4320-7a2c-8046-a8bb-f617eec67780" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Identificar BB demasiado grandes o que están cubriendo algo que no deberían.</li></ul></li></ul><div id="3e6a4320-7a2c-8090-903c-c0a2581d374a" class="column-list" data-notion-column-list="" dir="auto"><div id="3e6a4320-7a2c-80ec-ab54-ed1be10b0240" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e6a4320-7a2c-8094-a785-f4ede840515e" class="image" data-notion-image="image%2028.png" dir="ltr"><a href="image%2028.png"><img style="width:589.984375px" src="image%2028.png"/></a></figure><p id="3e6a4320-7a2c-8089-9179-d795dfc50be9" class="" dir="auto">
+</p><ul id="3e5a4320-7a2c-800a-8850-c455559439e9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Activar el contorno de los cuadritos.</li></ul><ul id="3e5a4320-7a2c-80ab-8422-ec2586d94892" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Utilizarlo para distinguir mejor los límites de cada BB.</li></ul><ul id="3e5a4320-7a2c-8050-849e-e9906e76df2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Especialmente útil cuando hay muchos BB juntos o cuando se superponen.</li></ul><ul id="3e6a4320-7a2c-801b-9973-e15db07ba1a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se usa siempre de la mano con la opacidad.</li></ul></div><div id="3e6a4320-7a2c-80bf-b15e-c61b404c2f4c" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e6a4320-7a2c-8003-8073-c8da8cde3c91" class="" dir="auto">La opacidad nos permite ver bbx duplicados con mayor facilidad. </p><p id="3e6a4320-7a2c-80bb-b82a-e2d9325e5062" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-808a-b207-f02772e83f0d" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-80f6-aef3-ec3d389ba512" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-80be-95fd-e54373cf3c15" class="" dir="auto">
+</p><figure id="3e6a4320-7a2c-80a2-a469-d3d022fb5977" class="image" data-notion-image="image%2029.png" dir="ltr"><a href="image%2029.png"><img style="width:230.984375px" src="image%2029.png"/></a></figure></div></div></div></details><details id="3e5a4320-7a2c-8002-a808-cec1241be8ce" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background"><strong>Ajustes de color.</strong></mark></summary><div class="indented"><p id="3e6a4320-7a2c-8041-8a22-f54e30536c42" class="" dir="auto"><strong>Para mejorar el color de la imagen puedes seguir los siguientes pasos:</strong></p><p id="3e6a4320-7a2c-8072-a2aa-fcaf1090f292" class="" dir="auto">Da click en la flecha que se encuentra abajo de la imagen: Te aparecerá este menú.</p><figure id="3e6a4320-7a2c-805b-965f-c205cdae08ad" class="image" data-notion-image="image4.png" dir="ltr"><a href="image4.png"><img style="width:97.98611450195312px" src="image4.png"/></a></figure><p id="3e6a4320-7a2c-8092-854e-f71039f13163" class="" dir="auto">Cuando una imagen sea difícil de visualizar, puedes utilizar los ajustes de color para distinguir mejor los agaves.</p><figure id="3eaa4320-7a2c-8072-b055-f3accab57c47" class="image" data-notion-image="Screenshot_2026-09-29_121115.png" dir="ltr"><a href="Screenshot_2026-09-29_121115.png"><img style="width:439.984375px" src="Screenshot_2026-09-29_121115.png"/></a></figure><p id="3eaa4320-7a2c-8004-a2fb-d396d8b7cd19" class="" dir="auto">
+</p><p id="3e6a4320-7a2c-80bc-b191-e48b49fa07cf" class="" dir="auto"><strong>🌵 Resaltar agave</strong></p><p id="3e6a4320-7a2c-80f8-8f91-ef5b9e80e8dd" class="" dir="auto">Es un ajuste preestablecido que, en la mayoría de los casos, permite ver los agaves con mayor claridad. Úsalo cuando tengas dificultad para identificarlos.</p><p id="3e6a4320-7a2c-8071-8cb5-f46e69adf213" class="" dir="auto">Si todavía necesitas mejorar la imagen, puedes utilizar los ajustes manuales de <strong>brillo, contraste o saturación</strong>.</p><blockquote id="3e6a4320-7a2c-80b1-915c-ed65ea69b538" class="" dir="auto"><strong>Recuerda:</strong> estos ajustes solo ayudan a ver mejor la imagen; no cambian las reglas de anotación.</blockquote></div></details><details id="3e5a4320-7a2c-802b-bb2d-d0d848268099" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Ghost Annotation.</mark></summary><div class="indented"><p id="3e6a4320-7a2c-8002-8c9f-f16f8e71739c" class="" dir="auto">Las <strong>Ghost Annotations</strong> muestran las plantas que ya fueron anotadas en imágenes vecinas de la misma tarea. Sirven para <strong>evitar anotaciones duplicadas</strong> y como referencia para identificar la continuidad de las líneas de plantación.</p><p id="3e6a4320-7a2c-80d3-a485-ebaf6d88c9cc" class="" dir="auto"><strong>Al inicio de cada tarea:</strong></p><ol type="1" id="3e6a4320-7a2c-807b-958f-e47359f1796d" class="numbered-list" start="1" dir="auto"><li>Activa las Ghost con <code>Shift + G</code>.</li></ol><ol type="1" id="3e6a4320-7a2c-801f-b039-e13e878e3092" class="numbered-list" start="2" dir="auto"><li><strong>Mantén las Ghost activadas durante toda la tarea.</strong></li></ol><ol type="1" id="3e6a4320-7a2c-8029-8355-f6aeea152cc2" class="numbered-list" start="3" dir="auto"><li>Si una planta ya tiene una Ghost Annotation, <strong>no vuelvas a colocarle un BBX</strong>.</li></ol><figure id="3eaa4320-7a2c-80ce-a75c-d77bbddc5712" class="image" data-notion-image="image%2030.png" dir="ltr"><a href="image%2030.png"><img style="width:589.984375px" src="image%2030.png"/></a></figure><p id="3e6a4320-7a2c-8025-bcbe-d3fa4ec9472c" class="" dir="auto"><strong>Eliminar duplicados de toda la tarea:</strong> <code>Shift + D</code></p><blockquote id="3e6a4320-7a2c-80b5-86af-f6381e0bef99" class="" dir="auto"><strong>Importante:</strong> Mantén siempre las Ghost activadas para poder identificar qué anotaciones ya existen y evitar volver a crearlas.</blockquote><div id="3eaa4320-7a2c-8094-842d-db31a65c1794" class="column-list" data-notion-column-list="" dir="auto"><div id="3eaa4320-7a2c-80b8-89a7-d41079228911" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3eaa4320-7a2c-8006-8ae1-f6b0664163f1" class="image" data-notion-image="image%2031.png" dir="ltr"><a href="image%2031.png"><img style="width:589.96875px" src="image%2031.png"/></a></figure></div><div id="3eaa4320-7a2c-8007-965b-d01e8f36a7e7" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3eaa4320-7a2c-8036-a9a1-efcfefa52edd" class="image" data-notion-image="image%2032.png" dir="ltr"><a href="image%2032.png"><img style="width:589.984375px" src="image%2032.png"/></a></figure></div></div></div></details></div></details></div></details><details id="3e5a4320-7a2c-8029-81bf-c28efc6e2b2e" open="" class="toggle" dir="auto"><summary>Módulo 6 / Revisión.</summary><div class="indented"><p id="3e5a4320-7a2c-80f3-8829-d4ce048d40d0" class="" dir="auto">Antes de enviar una tarea a revisión, debes hacer una revisión rápida para comprobar:</p><ul id="3e5a4320-7a2c-80ee-b9f4-df80ddbae739" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Hay algún agave que no anoté?.</strong></li></ul><ul id="3e5a4320-7a2c-802b-a8e5-d50a518dafbb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Puse huecos/no visibles donde realmente no correspondían?.</strong></li></ul><ul id="3e5a4320-7a2c-8031-ad73-dfc7f5be6c3c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿La distancia indica que falta algún agave que no marqué?.</strong></li></ul><ul id="3e5a4320-7a2c-8066-a2ac-c27e2d75e4c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Tengo BB fuera de las líneas de plantación?.</strong></li></ul><ul id="3e5a4320-7a2c-804a-9715-cabbf5eb7f30" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Hay BB duplicados o demasiado grandes?.</strong></li></ul><ul id="3e5a4320-7a2c-808a-808b-e2c6d69f27d0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Hay algún BB que debería eliminar?.</strong></li></ul><ul id="3e5a4320-7a2c-80ec-b5c0-c8b7d05a6ed6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Las líneas están correctamente completadas?.</strong></li></ul><blockquote id="3e5a4320-7a2c-8037-870e-f064ea54eadc" class="" dir="auto"><strong>Usa la vista general, Bitmap, opacidad y Outline/Border para hacer tu revisión.</strong></blockquote><p id="3e5a4320-7a2c-801f-8d28-ffa964dfa7f1" class="" dir="auto">Practica:</p><h4 id="3e5a4320-7a2c-80ea-8c83-e99e48f236b2" class="" dir="auto">1. Identifica el error</h4><p id="3e5a4320-7a2c-8041-a32c-f2554396ea6b" class="" dir="auto">Imagen ya anotada con un error.</p><figure id="3e9a4320-7a2c-8059-9b63-d7f6a4dcfbb1" class="image" data-notion-image="image%2033.png" dir="ltr"><a href="image%2033.png"><img style="width:623.984375px" src="image%2033.png"/></a></figure><p id="3e5a4320-7a2c-80cc-a738-e4808cc11cbc" class="" dir="auto"><strong>Pregunta:</strong></p><blockquote id="3e5a4320-7a2c-805e-a351-c71bf4782ded" class="" dir="auto">¿Qué error encuentras en esta imagen?.</blockquote><p id="3e5a4320-7a2c-80f1-9a2b-d2a031c7afdb" class="" dir="auto">Opciones:</p><ul id="3e5a4320-7a2c-80e0-b225-ecb088edd748" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Falta un agave.</li></ul><ul id="3e5a4320-7a2c-8087-9d2d-d19a29717a85" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hay BB de más.</li></ul><ul id="3e5a4320-7a2c-8011-a849-ccf22b5d3a37" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La anotación es correcta.</li></ul><ul id="3e5a4320-7a2c-8049-8cd8-de425090f25c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hay  BB  fuera de la línea de plantación.</li></ul><p id="3e9a4320-7a2c-80d6-b402-ce2ae4c32c67" class="" dir="auto">Respuesta correcta hay BB fuera de la línea de plantación.</p><p id="3e9a4320-7a2c-80ae-b105-c714cfaf86db" class="" dir="auto">Explicación: Recuerda que todo lo que se encuentre fuera de las líneas de plantación debe ser eliminado. <div class="indented"><h4 id="3e5a4320-7a2c-802e-8e7a-c08d334edbf9" class="" dir="auto">2. Decide qué harías.</h4><figure id="3e9a4320-7a2c-804e-a5b5-f9c4e7b05f5a" class="image" data-notion-image="image%2034.png" dir="ltr"><a href="image%2034.png"><img style="width:496px" src="image%2034.png"/></a></figure><blockquote id="3e5a4320-7a2c-801b-8e1f-e34c917848af" class="" dir="auto">Observa la distancia entre estos dos agaves. ¿Qué deberías hacer?.</blockquote><ul id="3e5a4320-7a2c-8028-beba-d84cbd501868" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No colocar nada.</li></ul><ul id="3e5a4320-7a2c-80e3-bb0d-c789770b9b2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Colocar un hueco.</li></ul><ul id="3e5a4320-7a2c-80d0-a1a5-cb467c076dba" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Colocar un no visible.</li></ul><ul id="3e5a4320-7a2c-8027-9c3b-f97b819a2aa9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Colocar un BB de agave.</li></ul></div></p><p id="3e9a4320-7a2c-802e-bc7f-f46c1221e6c1" class="" dir="auto"><strong>Respuesta correcta:</strong> Colocar un hueco.</p><p id="3e9a4320-7a2c-801d-bcfd-f659f5b90b12" class="" dir="auto">Explicación: el espacio nos indica que si hace falta un bbx y elegimos hueco ya que alcanzamos a ver el suelo. </p><h4 id="3e5a4320-7a2c-801d-808e-cc1fe509d17e" class="" dir="auto">3.Utiliza mentalmente las herramientas.</h4><p id="3e5a4320-7a2c-8036-a4c9-f65ce484fcc1" class="" dir="auto">Hay dos BB superpuestos y quieres comprobar si realmente corresponden a dos agaves diferentes. ¿Qué herramienta puedes utilizar?.</p><ul id="3e5a4320-7a2c-809a-80ae-fc9c3ca4bb16" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Vista normal.</li></ul><ul id="3e5a4320-7a2c-80e6-a546-fe38e77725fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Con Bitmap.</li></ul><ul id="3e5a4320-7a2c-806f-b20f-e891945c0d7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Con mayor opacidad y Outline/Border.</li></ul></div></details><details id="3e5a4320-7a2c-80b1-b537-c3dba23d8cce" open="" class="toggle" dir="auto"><summary>Evaluación final.</summary><div class="indented"><h1 id="3eaa4320-7a2c-8095-90b0-fb4d6a8e65c7" class="" dir="auto">Evaluación final</h1><p id="3eaa4320-7a2c-80d9-bad6-c27da3d7f9c2" class="" dir="auto">Esta evaluación comprobará que puedes identificar correctamente los elementos de una imagen y tomar decisiones de anotación de acuerdo con las reglas aprendidas.</p><p id="3eaa4320-7a2c-8046-bf52-eb1c577fc767" class="" dir="auto">Todas las preguntas son de selección. <strong>No necesitas escribir ninguna respuesta.</strong></p><p id="3eaa4320-7a2c-8068-979f-d5dec0a4acbe" class="" dir="auto"><strong>Para aprobar necesitas obtener mínimo 80/100.</strong></p><hr id="3eaa4320-7a2c-806e-90f3-ca4de0680726" dir="auto"/><h3 id="3eaa4320-7a2c-80e3-8832-fa661f7132e0" class="" dir="auto">1. ¿Cuál de las siguientes características ayuda a identificar un agave?.</h3><ul id="3eaa4320-7a2c-80c2-96e3-e40b25816c92" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Forma redonda, picos y centro oscuro.</li></ul><ul id="3eaa4320-7a2c-8089-b22b-f695f0d08113" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Forma cuadrada y color café.</li></ul><ul id="3eaa4320-7a2c-80f1-a825-d648557e29e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Forma alargada sin picos.</li></ul><ul id="3eaa4320-7a2c-8029-be8d-dc58a4247207" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Cualquier planta que se encuentre dentro de una línea.</li></ul><p id="3eaa4320-7a2c-80cf-b9c9-ef266ff7bb3a" class="" dir="auto"><strong>Respuesta correcta:</strong> Forma redonda, picos y centro oscuro.</p><hr id="3eaa4320-7a2c-80e4-9a77-d0a9ad6ca9a5" dir="auto"/><h3 id="3eaa4320-7a2c-8011-9505-eb9fb79e22ef" class="" dir="auto">2. Observa la siguiente foto y determina ¿Qué debes hacer?.</h3><figure id="3eea4320-7a2c-8022-a105-d84e7e3b171d" class="image" data-notion-image="image%2035.png" dir="ltr"><a href="image%2035.png"><img style="width:477.984375px" src="image%2035.png"/></a></figure><ul id="3eaa4320-7a2c-8031-93c9-d97b3a3bc2a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcarlo como hueco porque es demasiado pequeño.</li></ul><ul id="3eaa4320-7a2c-809c-9d76-eae0b42b0217" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Ignorarlo porque no tiene el color habitual.</li></ul><ul id="3eaa4320-7a2c-8006-b4f2-c059626e4706" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Anotarlo como agave.</li></ul><ul id="3eaa4320-7a2c-8070-b451-c00d8dcec2fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcarlo como no visible.</li></ul><p id="3eaa4320-7a2c-801b-ad0f-e61e1f546700" class="" dir="auto"><strong>Respuesta correcta:</strong> Anotarlo como agave.</p><hr id="3eaa4320-7a2c-80b7-99f6-f6f679f3cb87" dir="auto"/><h3 id="3eaa4320-7a2c-80ad-a14a-d0d70f8dbaa7" class="" dir="auto">3. No puedes distinguir claramente si hay un agave. ¿Qué puedes hacer primero para observar mejor?.</h3><ul id="3eaa4320-7a2c-8008-91a7-e33b5496dcdb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcar directamente un hueco.</li></ul><ul id="3eaa4320-7a2c-80b6-a085-cefbe5879aea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Utilizar los ajustes de color para mejorar la visualización.</li></ul><ul id="3eaa4320-7a2c-8026-a160-eec515424b37" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Eliminar la línea de plantación.</li></ul><ul id="3eaa4320-7a2c-80de-8f4e-e086300996be" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcar un no visible sin revisar.</li></ul><p id="3eaa4320-7a2c-8091-861b-edd7bf2978f8" class="" dir="auto"><strong>Respuesta correcta:</strong> Utilizar los ajustes de color para mejorar la visualización.</p><hr id="3eaa4320-7a2c-8050-b494-f5e5006a4d0c" dir="auto"/><h3 id="3eaa4320-7a2c-80cd-84e1-c65b1c14d16f" class="" dir="auto">4.  ¿Qué corresponde? </h3><figure id="3eda4320-7a2c-802a-bbe5-e9bb3dd02265" class="image" data-notion-image="image%2036.png" dir="ltr"><a href="image%2036.png"><img style="width:359.984375px" src="image%2036.png"/></a></figure><ul id="3eaa4320-7a2c-8089-a741-dda7d3e6463c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Agave.</li></ul><ul id="3eaa4320-7a2c-80c7-9cba-c858c4abd84f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No visible.</li></ul><ul id="3eaa4320-7a2c-8055-b0ff-fc16328fb883" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Hueco.</li></ul><ul id="3eaa4320-7a2c-807a-ab39-d00712146f1f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No colocar nada.</li></ul><p id="3eaa4320-7a2c-80d9-a002-f4faac240370" class="" dir="auto"><strong>Respuesta correcta:</strong> Hueco.</p><hr id="3eaa4320-7a2c-80f0-aebd-c084bd85d08b" dir="auto"/><h3 id="3eaa4320-7a2c-807f-9f06-f165fccb88c0" class="" dir="auto">5. ¿Qué corresponde?</h3><figure id="3f3a4320-7a2c-809a-813d-e13fff631403" class="image" data-notion-image="image%2037.png" dir="ltr"><a href="image%2037.png"><img style="width:346.96875px" src="image%2037.png"/></a></figure><ul id="3eaa4320-7a2c-80b1-ae72-fc54d8529286" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Hueco.</li></ul><ul id="3eaa4320-7a2c-807e-a050-dd2e9d4c3d25" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No visible.</li></ul><ul id="3eaa4320-7a2c-8065-8d45-d5337e8fc142" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Agave.</li></ul><ul id="3eaa4320-7a2c-8098-b6c5-f7b97e7519c3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No colocar nada.</li></ul><p id="3eaa4320-7a2c-8082-8718-dc4c9f78ff89" class="" dir="auto"><strong>Respuesta correcta:</strong> No visible.</p><hr id="3eaa4320-7a2c-8054-9f78-dd0524186f80" dir="auto"/><h3 id="3eaa4320-7a2c-809f-884d-e6fcf69c94ec" class="" dir="auto">6. ¿Qué determina principalmente si una zona con maleza debe marcarse como hueco o no visible?</h3><ul id="3eaa4320-7a2c-80ce-b2fb-e601a7f376d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ El color de la maleza.</li></ul><ul id="3eaa4320-7a2c-8029-9e5d-eea9a1d3c081" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ La cantidad/volumen de maleza y si podemos saber qué hay debajo.</li></ul><ul id="3eaa4320-7a2c-8022-ac36-fbb41d1a3f8e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ El tamaño de la imagen.</li></ul><ul id="3eaa4320-7a2c-80f9-93ab-c4db33e6b5e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ La cantidad de BB que haya alrededor.</li></ul><p id="3eaa4320-7a2c-8090-a9e2-f2ab705d36d7" class="" dir="auto"><strong>Respuesta correcta:</strong> La cantidad/volumen de maleza y si podemos saber qué hay debajo.</p><hr id="3eaa4320-7a2c-80ab-b917-c30f152bec84" dir="auto"/><h3 id="3eaa4320-7a2c-80f4-a5f2-cd12d0719f96" class="" dir="auto">7. Observa ¿Qué debes hacer?</h3><figure id="3eea4320-7a2c-801b-9cf3-e950c06ac5c0" class="image" data-notion-image="image%2038.png" dir="ltr"><a href="image%2038.png"><img style="width:452.984375px" src="image%2038.png"/></a></figure><ul id="3eaa4320-7a2c-803f-8c70-e260aaed07a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un hueco.</li></ul><ul id="3eaa4320-7a2c-809a-a1e8-da6ed7a88c65" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un no visible.</li></ul><ul id="3eaa4320-7a2c-80a1-9f11-d7e7fd8ccbcb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un agave en medio.</li></ul><ul id="3eaa4320-7a2c-809b-aa1e-f65e7391601e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No colocar ninguna anotación.</li></ul><p id="3eaa4320-7a2c-80ad-9793-debf47b01f5d" class="" dir="auto"><strong>Respuesta correcta:</strong> No colocar ninguna anotación.</p><hr id="3eaa4320-7a2c-801e-b458-e1c4c5ffec4a" dir="auto"/><h3 id="3eaa4320-7a2c-8084-9020-c50d77ae3eaa" class="" dir="auto">8. Encuentras un espacio mucho mayor que la distancia normal de plantación. ¿Qué debes determinar antes de colocar cualquier anotación?</h3><ul id="3eaa4320-7a2c-80f9-930b-f5405c0e2c88" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ El color del suelo.</li></ul><ul id="3eaa4320-7a2c-8090-92ba-f8b00d7dd5b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Cuántos agaves deberían existir en ese espacio.</li></ul><ul id="3eaa4320-7a2c-8034-af6b-c7a6b0c1d522" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Cuántos BB hay en la imagen.</li></ul><ul id="3eaa4320-7a2c-8050-9e92-f58a3c0c731f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Si la maleza es verde.</li></ul><p id="3eaa4320-7a2c-8015-9fdd-d50e864e6914" class="" dir="auto"><strong>Respuesta correcta:</strong> Cuántos agaves deberían existir en ese espacio.</p><hr id="3eaa4320-7a2c-8024-a096-f08b5261ec14" dir="auto"/><h3 id="3eaa4320-7a2c-8036-954d-d9301c8345a9" class="" dir="auto">9. Si la distancia entre dos agaves indica que debería existir un agave entre ellos, pero no lo encuentras, ¿qué debes hacer?</h3><ul id="3eaa4320-7a2c-801b-a363-fb397b6784a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un solo hueco o no visible, según lo que puedas observar en esa posición.</li></ul><ul id="3eaa4320-7a2c-80e2-af09-fdd144f215f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar dos huecos.</li></ul><ul id="3eaa4320-7a2c-80dc-9a28-e252b7284267" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No colocar nada porque existe espacio.</li></ul><ul id="3eaa4320-7a2c-80bc-91f6-e7dd1cad144e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un BB de agave automáticamente.</li></ul><p id="3eaa4320-7a2c-809f-857e-d046927d444e" class="" dir="auto"><strong>Respuesta correcta:</strong> Colocar un solo hueco o no visible, según lo que puedas observar en esa posición.</p><hr id="3eaa4320-7a2c-80ea-a415-db486ac8a833" dir="auto"/><h3 id="3eaa4320-7a2c-8093-b7a5-ecfed91a61b6" class="" dir="auto">10. ¿Cuál es la forma correcta de analizar un espacio entre agaves?</h3><ul id="3eaa4320-7a2c-8054-a001-e79b1caa1492" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ “Hay espacio, entonces pongo un hueco.”</li></ul><ul id="3eaa4320-7a2c-808a-aea7-dbeaa039dcbd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ “Primero determino la distancia y cuántos agaves faltan; después decido qué etiqueta corresponde.”</li></ul><ul id="3eaa4320-7a2c-80e2-af54-f8685a3bc7fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ “Todo espacio debe tener una anotación.”</li></ul><ul id="3eaa4320-7a2c-80f5-be85-e02b33643da4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ “Solo observo el color del suelo.”</li></ul><p id="3eaa4320-7a2c-8055-b914-fb2e0096426a" class="" dir="auto"><strong>Respuesta correcta:</strong> “Primero determino la distancia y cuántos agaves faltan; después decido qué etiqueta corresponde.”</p><hr id="3eaa4320-7a2c-8006-b6f6-cbbc0b32499a" dir="auto"/><h3 id="3eaa4320-7a2c-8094-a140-dbe4aea30052" class="" dir="auto">11.  ¿Debes continuar la línea con BB después del último agave visible?</h3><figure id="3eea4320-7a2c-8097-bca6-c086f2a4a985" class="image" data-notion-image="image%2039.png" dir="ltr"><a href="image%2039.png"><img style="width:659.96875px" src="image%2039.png"/></a></figure><ul id="3eaa4320-7a2c-80f4-917b-da8288d6b72f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Sí, siempre.</li></ul><ul id="3eaa4320-7a2c-80cb-9341-dc5237d200d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Sí, porque todas las líneas deben quedar completas.</li></ul><ul id="3eaa4320-7a2c-8020-83fa-daf7c9aa7646" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No, debes terminar la línea en el último agave visible.</li></ul><ul id="3eaa4320-7a2c-8078-8c0a-cb30f0ae449b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Solo si hay maleza.</li></ul><p id="3eaa4320-7a2c-8063-9e44-d966648f113c" class="" dir="auto"><strong>Respuesta correcta:</strong> No, debes terminar la línea en el último agave visible.</p><hr id="3eaa4320-7a2c-80bc-b3a5-f21e932ca5a1" dir="auto"/><h3 id="3eaa4320-7a2c-809c-b6af-d077f50a9ff2" class="" dir="auto">12. ¿Cuándo puedes continuar una línea hasta la orilla de la imagen?</h3><ul id="3eaa4320-7a2c-8033-bd45-edf05f24e39f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Cuando puedes asegurar que la imagen tiene continuación </li></ul><ul id="3eaa4320-7a2c-80f8-a930-d52e9b28011e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Siempre que veas suelo.</li></ul><ul id="3eaa4320-7a2c-80d7-9815-f0b4f4851602" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Siempre que haya espacio vacío.</li></ul><ul id="3eaa4320-7a2c-80ce-a2ba-d1394f1ce28d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Nunca.</li></ul><p id="3eaa4320-7a2c-8063-abea-e09eee14f8ed" class="" dir="auto"><strong>Respuesta correcta:</strong> Cuando puedes asegurar que la imagen tiene continuación </p><hr id="3eaa4320-7a2c-8089-8726-ff25ca307669" dir="auto"/><h3 id="3eaa4320-7a2c-8073-9dc4-fad4352e5369" class="" dir="auto">13. ¿Qué debes hacer normalmente con las líneas de plantación debajo de un árbol?</h3><ul id="3eaa4320-7a2c-80af-94c5-fc85e6c10b55" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Continuarlas siempre con huecos.</li></ul><ul id="3eaa4320-7a2c-8008-bc2b-d3f8a603af1c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No continuarlas.</li></ul><ul id="3eaa4320-7a2c-809d-8398-df517d745080" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcar todos los espacios como no visibles.</li></ul><ul id="3eaa4320-7a2c-8051-a6a3-c6ba6554d846" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Colocar un BB en cada espacio.</li></ul><p id="3eaa4320-7a2c-8064-ba26-c2767feb9f65" class="" dir="auto"><strong>Respuesta correcta:</strong> No continuarlas.</p><hr id="3eaa4320-7a2c-8023-905e-cfb23da98daa" dir="auto"/><h3 id="3eaa4320-7a2c-803c-80ed-c70db5cbf972" class="" dir="auto">14. Encuentras un agave claramente visible debajo de un árbol. ¿Qué corresponde?</h3><figure id="3f3a4320-7a2c-80c4-b866-d84c023a66d6" class="image" data-notion-image="image%2040.png" dir="ltr"><a href="image%2040.png"><img style="width:598.984375px" src="image%2040.png"/></a></figure><ul id="3eaa4320-7a2c-803c-a00b-c410b3382d96" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Ignorarlo porque está debajo del árbol.</li></ul><ul id="3eaa4320-7a2c-80cb-a8ff-e2ee94ebef48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Marcarlo como hueco.</li></ul><ul id="3eaa4320-7a2c-809d-bfda-c993f5121fc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Anotarlo como agave y continuar la línea con no visibles hasta el último agave visible.</li></ul><ul id="3eaa4320-7a2c-80b2-90bd-d5c810e3e577" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Completar toda la zona con huecos.</li></ul><p id="3eaa4320-7a2c-8083-99e9-c917d87781d8" class="" dir="auto"><strong>Respuesta correcta:</strong> Anotarlo como agave y continuar la línea con no visibles hasta el último agave visible.</p><hr id="3eaa4320-7a2c-8075-b69f-e76d00b79efb" dir="auto"/><h3 id="3eaa4320-7a2c-8061-aa16-c8bdbd59744f" class="" dir="auto">15. Identificas un pequeño agave fuera de las líneas de plantación, junto a un agave plantado. ¿Qué es probablemente?</h3><figure id="3eea4320-7a2c-80a0-8e4d-e50a07b9843b" class="image" data-notion-image="image%2041.png" dir="ltr"><a href="image%2041.png"><img style="width:562.984375px" src="image%2041.png"/></a></figure><ul id="3eaa4320-7a2c-8091-b6df-fdf14c94f1fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Un hueco, se debe marcar.</li></ul><ul id="3eaa4320-7a2c-80d0-9889-fb5606df20fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Un no visible, no se debe marcar</li></ul><ul id="3eaa4320-7a2c-8092-bebd-e44176d73a51" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Un hijuelo, no debe llevar BB</li></ul><ul id="3eaa4320-7a2c-8074-91da-ce489baa3cce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Un agave que debe llevar BB.</li></ul><p id="3eaa4320-7a2c-809f-b05c-d31c1fe81f38" class="" dir="auto"><strong>Respuesta correcta:</strong> Un hijuelo, no debe llevar BB</p><hr id="3eaa4320-7a2c-8096-b1e7-d5743a61087f" dir="auto"/><h3 id="3eaa4320-7a2c-80fe-a715-e0a5cde92f18" class="" dir="auto">16. ¿Cómo deben marcarse los hijuelos que están fuera de las líneas de plantación?</h3><ul id="3eaa4320-7a2c-80f5-8d70-f72003cc2d65" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con un BB.</li></ul><ul id="3eaa4320-7a2c-806b-9303-da7e69a655a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con un punto.</li></ul><ul id="3eaa4320-7a2c-8043-ac97-e10f7ad2f5d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con un no visible.</li></ul><ul id="3eaa4320-7a2c-80b6-9583-f116e1640cac" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No se deben marcar.</li></ul><p id="3eaa4320-7a2c-80ab-ba98-ef0bdff86d6b" class="" dir="auto"><strong>Respuesta correcta:</strong> No se deben marcar.</p><hr id="3eaa4320-7a2c-80a1-84b8-d49027717a54" dir="auto"/><h3 id="3eaa4320-7a2c-80d4-a4a9-e466387fd3a2" class="" dir="auto">17. En una tarea de microplantación, ¿qué elementos se anotan?</h3><ul id="3eaa4320-7a2c-807a-adb5-c0cd6c44b0a4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Agaves, huecos y no visibles.</li></ul><ul id="3eaa4320-7a2c-8077-a9f0-cfc0e7b40b2f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Solo huecos.</li></ul><ul id="3eaa4320-7a2c-8027-a148-ccf1edeeb279" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Solo agaves.</li></ul><ul id="3eaa4320-7a2c-80cc-be97-f464e7fba223" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Solo no visibles.</li></ul><p id="3eaa4320-7a2c-809d-b513-e07dbc9d2a05" class="" dir="auto"><strong>Respuesta correcta:</strong> Solo agaves.</p><hr id="3eaa4320-7a2c-80c8-b737-c76b8471eba7" dir="auto"/><h3 id="3eaa4320-7a2c-80df-bcaf-fc853c8b6005" class="" dir="auto">18. ¿Cómo se anotan los agaves en una microplantación?</h3><ul id="3eaa4320-7a2c-8089-87bc-ca669f30e5de" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con BB.</li></ul><ul id="3eaa4320-7a2c-80ce-832f-de8198138001" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con un punto por cada agave.</li></ul><ul id="3eaa4320-7a2c-8002-99bc-f167a2c7b408" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con huecos.</li></ul><ul id="3eaa4320-7a2c-8071-b9ab-d3bc5b056ca3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Con no visibles.</li></ul><p id="3eaa4320-7a2c-805b-8af0-c85d7ecf3afe" class="" dir="auto"><strong>Respuesta correcta:</strong> Con un punto por cada agave.</p><hr id="3eaa4320-7a2c-8014-a919-e57c9b785a7c" dir="auto"/><h3 id="3eaa4320-7a2c-800e-a4e3-f91688282652" class="" dir="auto">19. Antes de enviar una tarea a revisión, ¿cuál de estas acciones forma parte de una revisión correcta?</h3><ul id="3eaa4320-7a2c-8044-94f1-d89ccd08096e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Revisar si faltan agaves, si hay anotaciones incorrectas y si las líneas están correctamente completadas.</li></ul><ul id="3eaa4320-7a2c-805e-b16f-c419c1a033b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Revisar únicamente que haya suficientes BB.</li></ul><ul id="3eaa4320-7a2c-8095-84ed-de38f1f25d18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Revisar únicamente la cantidad de hectáreas.</li></ul><ul id="3eaa4320-7a2c-8084-84bd-cecfb1df99af" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No revisar la tarea porque ya fue anotada.</li></ul><p id="3eaa4320-7a2c-80da-a0d3-d4fb34f0fe7d" class="" dir="auto"><strong>Respuesta correcta:</strong> Revisar si faltan agaves, si hay anotaciones incorrectas y si las líneas están correctamente completadas.</p><hr id="3eaa4320-7a2c-80ad-a4d5-ca2a70e83ff4" dir="auto"/><h3 id="3eaa4320-7a2c-8072-ba57-cc953be21d76" class="" dir="auto">20. Tienes varios BB juntos o superpuestos y quieres distinguir claramente los límites de cada uno. ¿Qué herramienta puedes utilizar?</h3><ul id="3eaa4320-7a2c-8057-a832-dcd55e3833be" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Opacidad y Outline Border.</li></ul><ul id="3eaa4320-7a2c-8039-b2e4-e034caae15ad" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Distancia de plantación.</li></ul><ul id="3eaa4320-7a2c-80ed-b407-dc7a94bb308b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ Hueco.</li></ul><ul id="3eaa4320-7a2c-80cd-923b-c193d5dd9a00" class="bulleted-list" dir="auto"><li style="list-style-type:disc">⭕ No visible.</li></ul><p id="3eaa4320-7a2c-80c7-93af-e160e6331873" class="" dir="auto"><strong>Respuesta correcta:</strong> Outline / Border.</p></div></details><details id="3e5a4320-7a2c-800c-b506-f2328b3c544c" open="" class="toggle" dir="auto"><summary><mark class="highlight-teal_background" data-notion-highlight="teal_background">Módulo extra / Autoguardado y anotación automática (este módulo no se evalúa y va después de la evaluación final)</mark></summary><div class="indented"><details id="3e5a4320-7a2c-8006-a400-f0b6245b80e1" open="" class="toggle" dir="auto"><summary>Autoguardado.</summary><div class="indented"><h2 id="3e5a4320-7a2c-8081-a9ad-dd194e3e7c02" class="" dir="auto">Activa tu autoguardado</h2><p id="3e5a4320-7a2c-808c-862c-ea0c72e20e2f" class="" dir="auto">Este paso solo tendrás que realizarlo <mark class="highlight-red" data-notion-highlight="red"><strong>una vez</strong></mark><mark class="highlight-red" data-notion-highlight="red">, </mark>pero es obligatorio activarlo antes de comenzar a trabajar.</p><p id="3e5a4320-7a2c-8065-8e83-c3a56cec70e9" class="" dir="auto">El autoguardado permite guardar tu progreso y nos ayuda a identificar cuándo estás trabajando activamente en una tarea. Si no lo activas, tu tarea puede aparecer como inactiva y podría ser reasignada.</p><p id="3e5a4320-7a2c-805e-9f99-f8c4fa49939d" class="" dir="auto">Además, el autoguardado ayuda a reducir la pérdida de trabajo en caso de problemas con tu conexión a internet o con la electricidad.</p><h3 id="3e5a4320-7a2c-806a-a0f1-f1fd5dff0d1f" class="" dir="auto">¿Cómo activarlo?.</h3><ol type="1" id="3e5a4320-7a2c-804a-8983-f714dfe9736b" class="numbered-list" start="1" dir="auto"><li>Haz clic en el <strong>ícono de usuario</strong>, donde aparece tu ID de usuario.</li></ol><figure id="3e5a4320-7a2c-808a-834b-e13e47dbd499" class="image" data-notion-image="image%2042.png" dir="ltr"><a href="image%2042.png"><img style="width:118.953125px" src="image%2042.png"/></a></figure><ol type="1" id="3e5a4320-7a2c-8023-96f8-cb0ea9b47df4" class="numbered-list" start="1" dir="auto"><li>Entra en <strong>Settings / Configuración</strong>.</li></ol><figure id="3e5a4320-7a2c-8041-9010-e1d9aa511622" class="image" data-notion-image="image%2043.png" dir="ltr"><a href="image%2043.png"><img style="width:273.984375px" src="image%2043.png"/></a></figure><ol type="1" id="3e5a4320-7a2c-8071-abd8-d29ee21ac09f" class="numbered-list" start="1" dir="auto"><li>Entra en <strong>Workspace</strong>.</li></ol><ol type="1" id="3e5a4320-7a2c-8047-b859-f603677691ee" class="numbered-list" start="2" dir="auto"><li>Busca la opción <strong>Enable Auto Save</strong> y actívala.</li></ol><ol type="1" id="3e5a4320-7a2c-80b6-84ae-dd68d95d9315" class="numbered-list" start="3" dir="auto"><li>Configura el autoguardado en <strong>5 minutos</strong>.</li></ol><figure id="3e5a4320-7a2c-80f8-9dc8-fceebdcb1063" class="image" data-notion-image="image%2044.png" dir="ltr"><a href="image%2044.png"><img style="width:327.984375px" src="image%2044.png"/></a></figure><ol type="1" id="3e5a4320-7a2c-80f9-9405-e378b0ef544c" class="numbered-list" start="1" dir="auto"><li>Baja hasta el final de la página y haz clic en <strong>Save</strong> para guardar toda la configuración que acabas de realizar.<figure id="3e5a4320-7a2c-8073-9757-e52b67843cdb" class="image" data-notion-image="image%2045.png" dir="ltr"><a href="image%2045.png"><img style="width:168.96875px" src="image%2045.png"/></a></figure></li></ol><details id="3e5a4320-7a2c-8031-8285-d43b474956ec" open="" class="toggle" dir="auto"><summary>Guardar la imagen antes de enviar tu tarea a revisión.</summary><div class="indented"><p id="3e5a4320-7a2c-80b6-a4ca-fff9a2306bf4" class="" dir="auto">Para guardar tu progreso da click en el ícono de save.</p><figure id="3e5a4320-7a2c-806e-9530-ca40e3bf54ce" class="image" data-notion-image="image%2046.png" dir="ltr"><a href="image%2046.png"><img style="width:168.984375px" src="image%2046.png"/></a></figure><p id="3e5a4320-7a2c-800f-b8a0-eb6e4de35c3d" class="" dir="auto">Da click en Menú </p><p id="3e5a4320-7a2c-8016-aed6-e775230ee1ef" class="" dir="auto">Da click en Enviar a revisión / review.</p><figure id="3e9a4320-7a2c-8041-8524-dc7455de0b69" class="image" data-notion-image="image%2047.png" dir="ltr"><a href="image%2047.png"><img style="width:203.984375px" src="image%2047.png"/></a></figure></div></details></div></details><details id="3e5a4320-7a2c-80eb-ba76-cbb935cb2a56" open="" class="toggle" dir="auto"><summary>Anotación automática.</summary><div class="indented"><p id="3e5a4320-7a2c-800e-a1e5-e03e94d70175" class="" dir="auto"><strong>Anotación automática:</strong><div class="indented"><ul id="3e5a4320-7a2c-80dd-832f-ebd15e2675c4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Este proceso solo se realiza <mark class="highlight-red" data-notion-highlight="red"><strong>UNA VEZ</strong></mark> por cada tarea.</li></ul></div></p><p id="3e5a4320-7a2c-80c1-a700-f904035a5be4" class="" dir="auto"><strong>Sigue los siguientes pasos:</strong></p><p id="3e9a4320-7a2c-800e-9de5-fc5b6a5b4d68" class="" dir="auto">Para saber si una tarea ya tiene anotación automática sin necesidad de abrirla, sigan esta regla:</p><p id="3e9a4320-7a2c-8067-a0a6-e6c1dd5af769" class="" dir="auto"> <strong>&quot;New&quot;</strong> → La tarea no tiene anotación automática, deberán correr la anotación automática.</p><figure id="3e5a4320-7a2c-80b4-96a6-ca4ff194959d" class="image" data-notion-image="image.jpg" dir="ltr"><a href="image.jpg"><img style="width:643.6979370117188px" src="image.jpg"/></a></figure><p id="3e9a4320-7a2c-80fe-b4c7-f93aa44e4e8f" class="" dir="auto"><strong>&quot;In Progress&quot;</strong> → La tarea ya tiene anotación automática o alguien más ha trabajado en ella.<mark class="highlight-red" data-notion-highlight="red"><strong> NO debes correr la anotación automática!!</strong></mark></p><figure id="3e5a4320-7a2c-80fe-924e-dc61c4cca270" class="image" data-notion-image="image2.webp" dir="ltr"><a href="image2.webp"><img style="width:643.7500610351562px" src="image2.webp"/></a></figure><p id="3e9a4320-7a2c-80e0-aa4a-c8050e51303f" class="" dir="auto">Este detalle les ayudará a identificar rápidamente el estado de cada tarea y organizar mejor su flujo de trabajo.</p><h2 id="3e5a4320-7a2c-807d-b492-f373b3095c68" class="" dir="auto">Cómo correr la anotación automática</h2><div id="3e5a4320-7a2c-8013-9847-c9d6ffed7f12" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-802e-be66-f8df31033d0b" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-808a-8173-d29c93401b97" class="" dir="auto">Haz click en los 3 puntos del lado derecho.</p></div><div id="3e5a4320-7a2c-809b-b48b-fe6c854f45b5" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-80e8-8b23-e42ca2e59b02" class="image" data-notion-image="image2%201.png" dir="ltr"><a href="image2%201.png"><img style="width:410.0000305175781px" src="image2%201.png"/></a></figure></div></div><p id="3e5a4320-7a2c-80ef-ab25-c45cdfadfa84" class="" dir="auto">
+</p><div id="3e5a4320-7a2c-80b6-b3a8-e19a0198c015" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-80aa-8160-f7d280909550" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-80d4-8634-db127c67b850" class="image" data-notion-image="https://lh7-us.googleusercontent.com/oCj5W0e9KwVChysd4ayz8voOIWFmO9dudqPc_CZanqI8PveBue-JxWN76XclBdWNeu3HxlsrlCp_QqAtOjT-mi2sKyf7F9EVIR-WgzSQAPlo4P9r31_H6W1OPwrsh-jATbI7C8lHag4wnJ3t_lFhRvg" dir="ltr"><a href="https://lh7-us.googleusercontent.com/oCj5W0e9KwVChysd4ayz8voOIWFmO9dudqPc_CZanqI8PveBue-JxWN76XclBdWNeu3HxlsrlCp_QqAtOjT-mi2sKyf7F9EVIR-WgzSQAPlo4P9r31_H6W1OPwrsh-jATbI7C8lHag4wnJ3t_lFhRvg"><img style="width:200.00001525878906px" src="https://lh7-us.googleusercontent.com/oCj5W0e9KwVChysd4ayz8voOIWFmO9dudqPc_CZanqI8PveBue-JxWN76XclBdWNeu3HxlsrlCp_QqAtOjT-mi2sKyf7F9EVIR-WgzSQAPlo4P9r31_H6W1OPwrsh-jATbI7C8lHag4wnJ3t_lFhRvg"/></a></figure></div><div id="3e5a4320-7a2c-80f5-8a28-fc693222dbf1" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-8002-8d10-ec13a643cc24" class="" dir="auto">Haz click en AUTOMATIC ANNOTATION.</p></div></div><p id="3e5a4320-7a2c-8077-b980-e8be6ecd998f" class="" dir="auto">
+</p><div id="3e5a4320-7a2c-8004-a5c0-d0835898c8bf" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-80a1-840f-da3cdc19f48f" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-800f-b25c-f4ed93b5c0a3" class="" dir="auto">Da click en ctd_v5_ltr</p></div><div id="3e5a4320-7a2c-8090-bc10-f7d86a89be43" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-80a0-832f-d6c8fd457be9" class="image" data-notion-image="image6%201.png" dir="ltr"><a href="image6%201.png"><img style="width:385.0000305175781px" src="image6%201.png"/></a></figure></div></div><p id="3e5a4320-7a2c-80ff-a940-f2086649f31f" class="" dir="auto">
+</p><div id="3e5a4320-7a2c-80e7-9854-dcfa4f71a1dc" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-80f6-9755-cee9df57ba03" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-807d-8f2b-e7f5794835b5" class="image" data-notion-image="https://lh7-us.googleusercontent.com/Gj_9eOEaPP7W_OEwk4NCLcDlGzx7ulOL9fxa6ucqikYk86DQXXY0T3oJAdrY_lp2nAPCxNNBTQi53gLAa42QEr-1Lu_x3ZAK1mJdOyeYpmAF7Xj785Ef7o_5qFymWsFo-s22AV-TZULEe96O55OYtVY" dir="ltr"><a href="https://lh7-us.googleusercontent.com/Gj_9eOEaPP7W_OEwk4NCLcDlGzx7ulOL9fxa6ucqikYk86DQXXY0T3oJAdrY_lp2nAPCxNNBTQi53gLAa42QEr-1Lu_x3ZAK1mJdOyeYpmAF7Xj785Ef7o_5qFymWsFo-s22AV-TZULEe96O55OYtVY"><img style="width:342px" src="https://lh7-us.googleusercontent.com/Gj_9eOEaPP7W_OEwk4NCLcDlGzx7ulOL9fxa6ucqikYk86DQXXY0T3oJAdrY_lp2nAPCxNNBTQi53gLAa42QEr-1Lu_x3ZAK1mJdOyeYpmAF7Xj785Ef7o_5qFymWsFo-s22AV-TZULEe96O55OYtVY"/></a></figure></div><div id="3e5a4320-7a2c-803e-a66a-ef56d4e599d3" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-8065-a2de-e2ea1e95df41" class="" dir="auto">Da click en <mark class="highlight-blue" data-notion-highlight="blue"><strong>Annotate</strong></mark></p><p id="3e5a4320-7a2c-80e4-9d95-de221fe6ebd0" class="" dir="auto">
+</p></div></div><div id="3e5a4320-7a2c-80ae-b657-fc93eba46e8c" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-8057-b82a-e2880d02c979" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-80fb-a46f-fd255317e974" class="" dir="auto">Espera a que la línea se complete.</p></div><div id="3e5a4320-7a2c-8075-b906-fed0907ee4a1" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-80f2-b8d1-f72d15672318" class="image" data-notion-image="image3%202.png" dir="ltr"><a href="image3%202.png"><img style="width:528.9931030273438px" src="image3%202.png"/></a></figure></div></div><div id="3e5a4320-7a2c-80d4-8ea3-f1649a257cfe" class="column-list" data-notion-column-list="" dir="auto"><div id="3e5a4320-7a2c-8023-bed9-ed7c3351f008" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e5a4320-7a2c-80a2-b2b0-d7974b782a4e" class="image" data-notion-image="image11%201.png" dir="ltr"><a href="image11%201.png"><img style="width:243.99307250976562px" src="image11%201.png"/></a></figure></div><div id="3e5a4320-7a2c-80e2-b446-ea92405c5fe6" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><p id="3e5a4320-7a2c-8072-ab53-d1fb80a4dc61" class="" dir="auto">Una vez que se terminé te aparecerá este mensaje.</p></div></div><p id="3e5a4320-7a2c-8035-9192-ecbca7486526" class="" dir="auto">
+</p><p id="3e5a4320-7a2c-807d-8987-e09bbaaa2e7d" class="" dir="auto"><mark class="highlight-red" data-notion-highlight="red"><strong><span style="border-bottom:0.05em solid">IMPORTANTE</span></strong></mark>: Si abres la carpeta y la imagen ya tiene bounding boxes <strong>NO</strong> debes hacer anotación automática, solo continua el trabajo.</p><p id="3e5a4320-7a2c-80e2-9a18-ead12e2566e6" class="" dir="auto">
+</p><p id="3e5a4320-7a2c-8019-9e0a-ff7b74c79dae" class="" dir="auto">
+</p><p id="3e5a4320-7a2c-808e-b2b2-d692d8ff9d84" class="" dir="auto">
+</p></div></details></div></details></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
