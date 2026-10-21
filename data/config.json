@@ -1,0 +1,6 @@
+{
+  "minScore": 80,
+  "maxAttempts": 3,
+  "finalExamMinScore": 80,
+  "finalExamMaxAttempts": 3
+}
